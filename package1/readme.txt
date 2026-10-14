@@ -2,6 +2,16 @@ BUSI Ultrasound Segmentation Learning Package
 A beginner's guide for high school students
 ============================================================
 
+English visual lesson and PPT storyboard:
+  ML_FOR_HIGH_SCHOOL.md
+  32 slide outlines, speaker notes, calculations, and optional mini-labs.
+  Uses the actual segmentation project and distinguishes pixel-level
+  metrics from patient-level cancer-screening claims.
+  teaching_assets\ contains SVG diagrams and reference-image illustrations.
+  make_teaching_images.py regenerates the two reference illustrations on
+  Windows using the installed project dependencies and the Arial font.
+  The Markdown is a lesson handout/storyboard, not an exported PPTX file.
+
 1. What does the computer learn?
 
 Think of this task as coloring in the lesion in an ultrasound picture.

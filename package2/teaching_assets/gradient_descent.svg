@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="500" viewBox="0 0 1280 500">
+  <title>A worked gradient-descent example with a simple squared-error loss</title>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 Z" fill="#ea580c"/></marker></defs>
+  <rect width="1280" height="500" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif">
+    <text x="640" y="42" text-anchor="middle" font-size="28" fill="#0f172a">Toy loss L(w) = (w - 3)^2: step against the gradient</text>
+    <text x="640" y="80" text-anchor="middle" font-size="20" fill="#9a3412">Teaching example; not the CNN loss surface or its Adam update.</text>
+    <path d="M90 120 V415 H680" fill="none" stroke="#334155" stroke-width="3"/>
+    <path d="M100 145 Q370 685 640 145" fill="none" stroke="#2563eb" stroke-width="4"/>
+    <text x="90" y="112" font-size="20" fill="#334155">Loss</text>
+    <text x="657" y="447" font-size="20" fill="#334155">w</text>
+    <circle cx="100" cy="145" r="8" fill="#ea580c"/>
+    <circle cx="154" cy="242" r="8" fill="#ea580c"/>
+    <path d="M110 153 L149 232" stroke="#ea580c" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="112" y="136" font-size="19" fill="#9a3412">w = 0, L = 9</text>
+    <text x="166" y="244" font-size="19" fill="#9a3412">w = 0.6, L = 5.76</text>
+    <text x="335" y="445" font-size="19" fill="#334155">w = 3</text>
+    <g font-size="24" fill="#0f172a">
+      <text x="750" y="160">Learning rate = 0.1</text>
+      <text x="750" y="214">Gradient = 2(w - 3)</text>
+      <text x="750" y="268">At w = 0: gradient = -6</text>
+      <text x="750" y="322">New w = 0 - 0.1(-6) = 0.6</text>
+      <text x="750" y="376">Loss falls from 9 to 5.76</text>
+    </g>
+    <text x="640" y="480" text-anchor="middle" font-size="19" fill="#475569">The gradient says which direction increases loss. Small opposite steps may reduce it.</text>
+  </g>
+</svg>

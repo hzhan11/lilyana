@@ -1,0 +1,35 @@
+BreastMNIST64 educational binary classification dataset
+=====================================================
+Official archive:
+https://zenodo.org/records/10519652/files/breastmnist_64.npz?download=1
+Expected MD5: 742edef2a1fd1524b2efff4bd7ba9364
+Approximate archive size: 2.85 MB.
+
+Source: MedMNIST v2, official medmnist info.py.
+Images: uint8 grayscale, 64 x 64 pixels; no masks are used.
+Preserve the official train/validation/test splits without resplitting:
+  train_images (546,64,64), train_labels (546,1)
+  val_images    (78,64,64), val_labels    (78,1)
+  test_images  (156,64,64), test_labels  (156,1)
+
+Official labels: 0 = malignant, 1 = normal or benign.
+This package reverses them ONCE: package_label = 1 - official_label.
+Package labels: 0 = normal_or_benign, 1 = malignant (positive class).
+The model produces an image-level malignant score, not a segmentation mask.
+These image splits and metrics do not establish patient-level clinical validity.
+
+BreastMNIST data license: Creative Commons Attribution 4.0 (CC BY 4.0).
+License: https://creativecommons.org/licenses/by/4.0/
+Attribute MedMNIST v2 and the original BUSI dataset when reusing the data.
+MedMNIST v2:
+Yang et al., "MedMNIST v2 - A large-scale lightweight benchmark for
+2D and 3D biomedical image classification," Scientific Data (2023).
+DOI: https://doi.org/10.1038/s41597-022-01721-8
+Original BUSI:
+Al-Dhabyani et al., "Dataset of breast ultrasound images,"
+Data in Brief (2020).
+DOI: https://doi.org/10.1016/j.dib.2019.104863
+
+To fetch only this verified archive:
+  python .\package2\train_breast_cancer.py --prepare-data --download
+An existing archive is checksum-checked and is never silently replaced.

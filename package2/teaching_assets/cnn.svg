@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="590" viewBox="0 0 1280 590">
+  <title>Exact SimpleCNN architecture used in package2</title>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 Z" fill="#475569"/></marker></defs>
+  <rect width="1280" height="590" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="640" y="43" font-size="29" fill="#0f172a">A small CNN: extract patterns, summarize, classify</text>
+    <text x="640" y="82" font-size="20" fill="#475569">Feature shapes below: height x width x channels; omit the batch dimension.</text>
+    <g stroke-width="2" fill="#dbeafe" stroke="#2563eb">
+      <rect x="30" y="125" width="200" height="145" rx="12"/>
+      <rect x="280" y="125" width="200" height="145" rx="12"/>
+      <rect x="530" y="125" width="200" height="145" rx="12"/>
+      <rect x="780" y="125" width="200" height="145" rx="12"/>
+      <rect x="1030" y="125" width="220" height="145" rx="12" fill="#dcfce7" stroke="#16a34a"/>
+    </g>
+    <g font-size="21" fill="#0f172a">
+      <text x="130" y="162">Grayscale input</text><text x="130" y="204">64 x 64 x 1</text><text x="130" y="243">Brightness / 255</text>
+      <text x="380" y="162">Conv 3 x 3, ReLU</text><text x="380" y="204">64 x 64 x 8</text><text x="380" y="243">MaxPool -> 32 x 32</text>
+      <text x="630" y="162">Conv 3 x 3, ReLU</text><text x="630" y="204">32 x 32 x 16</text><text x="630" y="243">MaxPool -> 16 x 16</text>
+      <text x="880" y="162">Adaptive average</text><text x="880" y="204">4 x 4 x 16</text><text x="880" y="243">Flatten: 256 values</text>
+      <text x="1140" y="162">Linear 256 -> 32</text><text x="1140" y="204">ReLU</text><text x="1140" y="243">Linear 32 -> 1 logit</text>
+    </g>
+    <g stroke="#475569" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <path d="M230 197 H272"/><path d="M480 197 H522"/><path d="M730 197 H772"/><path d="M980 197 H1022"/>
+      <path d="M1140 270 V329 H970"/>
+    </g>
+    <rect x="310" y="310" width="660" height="90" rx="12" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+    <text x="640" y="347" font-size="23" fill="#9a3412">Sigmoid -> malignant score p between 0 and 1</text>
+    <text x="640" y="380" font-size="23" fill="#9a3412">p >= 0.5 -> label 1; otherwise -> label 0</text>
+    <text x="640" y="461" font-size="24" fill="#0f172a">9,505 trainable parameters. One score per IMAGE, not one score per pixel.</text>
+    <text x="640" y="506" font-size="21" fill="#475569">The final score is not automatically a calibrated patient cancer probability.</text>
+    <text x="640" y="550" font-size="19" fill="#475569">During training: feed logits directly to BCEWithLogitsLoss; sigmoid is used for scores and decisions.</text>
+  </g>
+</svg>

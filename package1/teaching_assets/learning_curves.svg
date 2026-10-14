@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="540" viewBox="0 0 1280 540">
+  <title>Illustrative learning curves, not measured package1 results</title>
+  <rect width="1280" height="540" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif">
+    <text x="640" y="42" text-anchor="middle" font-size="28" fill="#0f172a">Learning curves: improvement is not the same as memorization</text>
+    <text x="640" y="78" text-anchor="middle" font-size="21" fill="#9a3412">SCHEMATIC ONLY: these lines are not measured experiment data.</text>
+    <g stroke="#334155" stroke-width="3" fill="none">
+      <path d="M100 130 V410 H585"/><path d="M730 130 V410 H1215"/>
+    </g>
+    <g font-size="21" fill="#334155">
+      <text x="100" y="120">Loss</text><text x="730" y="120">Loss</text>
+      <text x="490" y="444">Epoch</text><text x="1120" y="444">Epoch</text>
+      <text x="195" y="495">Useful learning</text><text x="885" y="495">Overfitting</text>
+    </g>
+    <g fill="none" stroke-width="5">
+      <path d="M120 160 C180 280 230 325 320 350 S470 375 565 380" stroke="#2563eb"/>
+      <path d="M120 145 C180 240 230 295 320 315 S470 336 565 338" stroke="#16a34a"/>
+      <path d="M750 160 C810 280 860 325 950 350 S1100 375 1195 390" stroke="#2563eb"/>
+      <path d="M750 145 C810 240 860 300 935 315 S1060 260 1195 190" stroke="#16a34a"/>
+    </g>
+    <g font-size="19">
+      <text x="430" y="307" fill="#16a34a">Validation</text><text x="430" y="400" fill="#2563eb">Training</text>
+      <text x="1090" y="170" fill="#16a34a">Validation</text><text x="1090" y="413" fill="#2563eb">Training</text>
+    </g>
+    <path d="M960 130 V410" stroke="#ea580c" stroke-width="2" stroke-dasharray="7 6"/>
+    <text x="985" y="140" font-size="18" fill="#9a3412">Gap grows</text>
+  </g>
+</svg>

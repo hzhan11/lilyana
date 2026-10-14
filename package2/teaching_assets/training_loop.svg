@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="470" viewBox="0 0 1280 470">
+  <title>Classification training loop with separate validation and test stages</title>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 Z" fill="#475569"/></marker></defs>
+  <rect width="1280" height="470" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="640" y="43" font-size="28" fill="#0f172a">Training: predict -> penalty -> gradients -> update</text>
+    <g fill="#dbeafe" stroke="#2563eb" stroke-width="2">
+      <rect x="35" y="95" width="210" height="105" rx="12"/>
+      <rect x="285" y="95" width="210" height="105" rx="12"/>
+      <rect x="535" y="95" width="210" height="105" rx="12"/>
+      <rect x="785" y="95" width="210" height="105" rx="12"/>
+      <rect x="1035" y="95" width="210" height="105" rx="12"/>
+    </g>
+    <g font-size="22" fill="#0f172a">
+      <text x="140" y="135">Batch of images</text><text x="140" y="170">+ one label each</text>
+      <text x="390" y="135">Forward pass</text><text x="390" y="170">model(images)</text>
+      <text x="640" y="135">BCE loss</text><text x="640" y="170">compare with labels</text>
+      <text x="890" y="135">Backpropagation</text><text x="890" y="170">loss.backward()</text>
+      <text x="1140" y="135">Adam update</text><text x="1140" y="170">optimizer.step()</text>
+    </g>
+    <g stroke="#475569" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <path d="M245 147 H277"/><path d="M495 147 H527"/><path d="M745 147 H777"/><path d="M995 147 H1027"/>
+      <path d="M1140 200 V260 H140 V208"/>
+    </g>
+    <text x="640" y="245" font-size="19" fill="#475569">Clear previous gradients before backward; repeat with the next batch.</text>
+    <rect x="95" y="300" width="1090" height="115" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="640" y="338" font-size="23" fill="#166534">After each epoch: evaluate validation data WITHOUT updates</text>
+    <text x="640" y="372" font-size="22" fill="#166534">Save a checkpoint whenever validation loss improves</text>
+    <text x="640" y="402" font-size="19" fill="#166534">Testing is a separate command after the model and settings have been selected.</text>
+    <text x="640" y="455" font-size="18" fill="#475569">Validation influences selection. The test set must not guide the next parameter change.</text>
+  </g>
+</svg>

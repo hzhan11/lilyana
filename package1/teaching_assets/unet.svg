@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="630" viewBox="0 0 1280 630">
+  <title>U-Net feature shapes for the actual package1 model with a 128 by 128 input</title>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 Z" fill="#475569"/></marker></defs>
+  <rect width="1280" height="630" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="640" y="38" font-size="28" fill="#0f172a">U-Net: understand the scene, then recover the outline</text>
+    <text x="640" y="73" font-size="20" fill="#475569">Shapes are height x width x channels (batch dimension omitted).</text>
+    <g fill="#dbeafe" stroke="#2563eb" stroke-width="2">
+      <rect x="60" y="120" width="210" height="64" rx="10"/>
+      <rect x="125" y="220" width="210" height="64" rx="10"/>
+      <rect x="190" y="320" width="210" height="64" rx="10"/>
+      <rect x="255" y="420" width="210" height="64" rx="10"/>
+      <rect x="525" y="510" width="230" height="64" rx="10" fill="#e9d5ff" stroke="#9333ea"/>
+    </g>
+    <g fill="#dcfce7" stroke="#16a34a" stroke-width="2">
+      <rect x="1010" y="120" width="210" height="64" rx="10"/>
+      <rect x="945" y="220" width="210" height="64" rx="10"/>
+      <rect x="880" y="320" width="210" height="64" rx="10"/>
+      <rect x="815" y="420" width="210" height="64" rx="10"/>
+    </g>
+    <g font-size="22" fill="#0f172a">
+      <text x="165" y="160">128 x 128 x 16</text><text x="230" y="260">64 x 64 x 32</text>
+      <text x="295" y="360">32 x 32 x 64</text><text x="360" y="460">16 x 16 x 128</text>
+      <text x="640" y="550">8 x 8 x 256</text>
+      <text x="1115" y="160">128 x 128 x 16</text><text x="1050" y="260">64 x 64 x 32</text>
+      <text x="985" y="360">32 x 32 x 64</text><text x="920" y="460">16 x 16 x 128</text>
+    </g>
+    <g stroke="#475569" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <path d="M165 184 L230 213"/><path d="M230 284 L295 313"/><path d="M295 384 L360 413"/>
+      <path d="M360 484 L518 538"/><path d="M755 538 L920 491"/>
+      <path d="M920 420 L985 391"/><path d="M985 320 L1050 291"/><path d="M1050 220 L1115 191"/>
+    </g>
+    <g stroke="#ea580c" stroke-width="3" stroke-dasharray="9 6" marker-end="url(#arrow)">
+      <path d="M270 152 H1002"/><path d="M335 252 H937"/><path d="M400 352 H872"/><path d="M465 452 H807"/>
+    </g>
+    <text x="640" y="140" font-size="19" fill="#9a3412">Skip connections: concatenate same-size features</text>
+    <text x="640" y="240" font-size="19" fill="#475569">Left: pooling halves width and height</text>
+    <text x="640" y="340" font-size="19" fill="#475569">Right: learned upsampling doubles them</text>
+    <text x="640" y="415" font-size="19" fill="#475569">Each block: Conv / BatchNorm / ReLU, twice</text>
+    <text x="640" y="610" font-size="20" fill="#0f172a">Input: 128 x 128 x 1. Final 1 x 1 convolution: 128 x 128 x 1 logits, then sigmoid.</text>
+  </g>
+</svg>

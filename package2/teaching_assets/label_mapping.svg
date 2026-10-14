@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="430" viewBox="0 0 1280 430">
+  <title>Explicit reversal of the official BreastMNIST binary labels</title>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 Z" fill="#475569"/></marker></defs>
+  <rect width="1280" height="430" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="640" y="45" font-size="29" fill="#0f172a">Labels are conventions: always check their meaning</text>
+    <rect x="65" y="95" width="410" height="200" rx="14" fill="#e2e8f0"/>
+    <rect x="805" y="95" width="410" height="200" rx="14" fill="#dbeafe"/>
+    <g font-size="25" fill="#0f172a">
+      <text x="270" y="135">Official BreastMNIST</text><text x="1010" y="135">Our package2</text>
+      <text x="270" y="200">0 = malignant</text><text x="1010" y="200">1 = malignant</text>
+      <text x="270" y="260">1 = normal / benign</text><text x="1010" y="260">0 = normal / benign</text>
+    </g>
+    <g stroke="#475569" stroke-width="3" marker-end="url(#arrow)">
+      <path d="M475 195 H797"/><path d="M475 255 H797"/>
+    </g>
+    <text x="640" y="176" font-size="22" fill="#475569">new y = 1 - old y</text>
+    <text x="640" y="347" font-size="24" fill="#9a3412">Remap exactly once when loading the reference labels.</text>
+    <text x="640" y="390" font-size="20" fill="#475569">Model scores, confusion matrices, predictions, and checkpoint metadata use package2 labels.</text>
+  </g>
+</svg>

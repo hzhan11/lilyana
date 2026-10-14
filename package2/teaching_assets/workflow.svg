@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="450" viewBox="0 0 1280 450">
+  <title>BreastMNIST64 binary classification workflow</title>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 Z" fill="#475569"/></marker></defs>
+  <rect width="1280" height="450" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="640" y="45" font-size="29" fill="#0f172a">One image -> one score -> one binary label</text>
+    <g fill="#dbeafe" stroke="#2563eb" stroke-width="2">
+      <rect x="25" y="105" width="210" height="110" rx="14"/>
+      <rect x="280" y="105" width="210" height="110" rx="14"/>
+      <rect x="535" y="105" width="210" height="110" rx="14"/>
+      <rect x="790" y="105" width="210" height="110" rx="14"/>
+      <rect x="1045" y="105" width="210" height="110" rx="14"/>
+    </g>
+    <g font-size="22" fill="#0f172a">
+      <text x="130" y="140">Ultrasound images</text><text x="130" y="178">+ 0/1 labels</text>
+      <text x="385" y="140">Official splits</text><text x="385" y="178">train / valid / test</text>
+      <text x="640" y="140">Train simple CNN</text><text x="640" y="178">BCE + Adam</text>
+      <text x="895" y="140">Select checkpoint</text><text x="895" y="178">lowest valid loss</text>
+      <text x="1150" y="140">Run held-out test</text><text x="1150" y="178">separate command</text>
+    </g>
+    <g stroke="#475569" stroke-width="3" marker-end="url(#arrow)">
+      <path d="M235 160 H272"/><path d="M490 160 H527"/><path d="M745 160 H782"/><path d="M1000 160 H1037"/>
+    </g>
+    <rect x="155" y="270" width="970" height="112" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+    <text x="640" y="308" font-size="24" fill="#9a3412">Package labels: 0 = normal / benign; 1 = malignant</text>
+    <text x="640" y="343" font-size="21" fill="#9a3412">A benchmark image classification is NOT a patient diagnosis.</text>
+    <text x="640" y="418" font-size="20" fill="#475569">No masks. No U-Net. No pixel-by-pixel answers.</text>
+  </g>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="480" viewBox="0 0 1280 480">
+  <title>Training loop and separate validation path</title>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 Z" fill="#475569"/></marker></defs>
+  <rect width="1280" height="480" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="640" y="45" font-size="29" fill="#0f172a">One training batch: predict, measure, differentiate, update</text>
+    <g fill="#dbeafe" stroke="#2563eb" stroke-width="2">
+      <rect x="35" y="100" width="210" height="100" rx="12"/>
+      <rect x="285" y="100" width="210" height="100" rx="12"/>
+      <rect x="535" y="100" width="210" height="100" rx="12"/>
+      <rect x="785" y="100" width="210" height="100" rx="12"/>
+      <rect x="1035" y="100" width="210" height="100" rx="12"/>
+    </g>
+    <g font-size="22" fill="#0f172a">
+      <text x="140" y="140">Batch of images</text><text x="140" y="171">+ reference masks</text>
+      <text x="390" y="140">Forward pass</text><text x="390" y="171">model(images)</text>
+      <text x="640" y="140">Loss</text><text x="640" y="171">BCE + Dice loss</text>
+      <text x="890" y="140">Backpropagation</text><text x="890" y="171">loss.backward()</text>
+      <text x="1140" y="140">Adam update</text><text x="1140" y="171">optimizer.step()</text>
+    </g>
+    <g stroke="#475569" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <path d="M245 150 H277"/><path d="M495 150 H527"/><path d="M745 150 H777"/><path d="M995 150 H1027"/>
+      <path d="M1140 200 V263 H140 V208"/>
+    </g>
+    <text x="640" y="251" font-size="20" fill="#475569">Clear old gradients before backpropagation; repeat with the next training batch.</text>
+    <rect x="115" y="320" width="1050" height="106" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="640" y="359" font-size="24" fill="#166534">After each epoch: validation images -> predictions -> scores -> model selection</text>
+    <text x="640" y="393" font-size="22" fill="#166534">No backward pass. No optimizer update. Test data stays outside this loop.</text>
+    <text x="640" y="459" font-size="18" fill="#475569">Training changes weights. Validation changes our choice of model, not its weights directly.</text>
+  </g>
+</svg>

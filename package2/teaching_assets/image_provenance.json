@@ -1,0 +1,65 @@
+{
+  "dataset": "BreastMNIST64",
+  "mapping": {
+    "0": "normal_or_benign",
+    "1": "malignant"
+  },
+  "label_transform": "package_label = 1 - official_label",
+  "illustration_examples": [
+    {
+      "split": "train",
+      "index": 0,
+      "label": 0,
+      "official_label": 1
+    },
+    {
+      "split": "train",
+      "index": 1,
+      "label": 0,
+      "official_label": 1
+    },
+    {
+      "split": "train",
+      "index": 2,
+      "label": 0,
+      "official_label": 1
+    },
+    {
+      "split": "train",
+      "index": 3,
+      "label": 0,
+      "official_label": 1
+    },
+    {
+      "split": "train",
+      "index": 4,
+      "label": 1,
+      "official_label": 0
+    },
+    {
+      "split": "train",
+      "index": 8,
+      "label": 1,
+      "official_label": 0
+    },
+    {
+      "split": "train",
+      "index": 12,
+      "label": 1,
+      "official_label": 0
+    },
+    {
+      "split": "train",
+      "index": 14,
+      "label": 1,
+      "official_label": 0
+    }
+  ],
+  "example_ultrasound": {
+    "split": "train",
+    "index": 4,
+    "label": 1,
+    "independent_test": false
+  },
+  "changes": "Nearest-neighbor enlargement for the contact sheet and text headings."
+}
