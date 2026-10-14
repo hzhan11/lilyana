@@ -1,0 +1,2 @@
+epoch,train_loss,train_pixel_accuracy,val_loss,val_pixel_accuracy,val_dice
+1,1.455381,0.782901,1.328989,0.911216,0.526865
