@@ -1,0 +1,18 @@
+{
+  "synthetic": true,
+  "seed": 42,
+  "split_seed": 43,
+  "features": [
+    "area_sqm",
+    "rooms"
+  ],
+  "target": "price_kusd",
+  "target_units": "thousand USD (simulated; not real property valuations)",
+  "formula": "80 + 1.9*area_sqm + 25*rooms + 0.004*(area_sqm-120)^2 + Normal(0,15)",
+  "counts": {
+    "train": 1400,
+    "val": 300,
+    "test": 300
+  },
+  "split": "Random, disjoint rows. Scaling is fitted only to the training split."
+}

@@ -1,0 +1,682 @@
+{
+  "image_size": [
+    128,
+    128
+  ],
+  "seed": 42,
+  "note": "Training and validation intentionally share three base drawing families per class, with small rotations, translations and overlapping coat palettes. Validation is near-duplicate validation, not a classic independent validation set. Test uses six separately drawn families per class and a shifted illustration style. All samples are fixed before training; no labels, images or test selections depend on model predictions. Performance is not guaranteed.",
+  "samples": [
+    {
+      "path": "pic/train/cat_01.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_1",
+      "style": "seated mascot",
+      "angle": 2.231,
+      "color": "#dba2b4",
+      "shift": [
+        -2,
+        0
+      ],
+      "sha256": "df623dd5985247e071f37fdaf882a49bb9b574180dfeb0273b694fd993dd1be9"
+    },
+    {
+      "path": "pic/train/cat_02.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_1",
+      "style": "seated mascot",
+      "angle": -4.082,
+      "color": "#4a4951",
+      "shift": [
+        -1,
+        -2
+      ],
+      "sha256": "d05f8d275c09a0e33c45dccf066fa3a0729b5eef0afd46d539261ccc427378c8"
+    },
+    {
+      "path": "pic/train/cat_03.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_1",
+      "style": "seated mascot",
+      "angle": 2.827,
+      "color": "#c89a70",
+      "shift": [
+        2,
+        -2
+      ],
+      "sha256": "629a23ba95ffc5501c68d49b47833997c0c40ca02064e1ff70c7280ca0d20f20"
+    },
+    {
+      "path": "pic/train/cat_04.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_1",
+      "style": "seated mascot",
+      "angle": 1.448,
+      "color": "#9aa5af",
+      "shift": [
+        -2,
+        -2
+      ],
+      "sha256": "528f84c2926392c4028df8bfd10f64d8cacbd65b0af9d370a7473117cde98da3"
+    },
+    {
+      "path": "pic/train/cat_05.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_2",
+      "style": "large-head portrait",
+      "angle": -6.501,
+      "color": "#4a4951",
+      "shift": [
+        -1,
+        2
+      ],
+      "sha256": "00635ed5eca4c65df613bea2a634713d2ff5600f9fc5f270164b6d86454957fb"
+    },
+    {
+      "path": "pic/train/cat_06.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_2",
+      "style": "large-head portrait",
+      "angle": 1.632,
+      "color": "#c89a70",
+      "shift": [
+        2,
+        -1
+      ],
+      "sha256": "bf886b93024df1b91518dc0eff7749620161f5080c85af1f169faf73d91b37c7"
+    },
+    {
+      "path": "pic/train/cat_07.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_2",
+      "style": "large-head portrait",
+      "angle": 3.456,
+      "color": "#9aa5af",
+      "shift": [
+        2,
+        1
+      ],
+      "sha256": "7ff4c5f9e135eeb7702635a880430a3dc8770c0b9389d698a2caf7794d8329e1"
+    },
+    {
+      "path": "pic/train/cat_08.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_2",
+      "style": "large-head portrait",
+      "angle": -4.473,
+      "color": "#dba2b4",
+      "shift": [
+        2,
+        0
+      ],
+      "sha256": "27195125082e06a3e672bd1b7637b1821e7ecf91c5b615a7e9527345b903562f"
+    },
+    {
+      "path": "pic/train/cat_09.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_3",
+      "style": "compact seated mascot",
+      "angle": 4.951,
+      "color": "#c89a70",
+      "shift": [
+        -2,
+        -1
+      ],
+      "sha256": "accafba7f37c068ab0a557ba530b2ca465e3acaf188473d7f5d87cbbf694e694"
+    },
+    {
+      "path": "pic/train/cat_10.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_3",
+      "style": "compact seated mascot",
+      "angle": 3.17,
+      "color": "#9aa5af",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "4b0a66d99cb4ddf2c30b8a6667bbc6a977c9a834425bde3a933dbe54bcb8682d"
+    },
+    {
+      "path": "pic/train/cat_11.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_3",
+      "style": "compact seated mascot",
+      "angle": -5.512,
+      "color": "#dba2b4",
+      "shift": [
+        0,
+        -2
+      ],
+      "sha256": "bb4c38f57813930b2f5abfed7b96e4cf8795727a451ab1faa41a860502f98966"
+    },
+    {
+      "path": "pic/train/cat_12.png",
+      "split": "train",
+      "label": "cat",
+      "family_id": "cat_familiar_3",
+      "style": "compact seated mascot",
+      "angle": -6.516,
+      "color": "#4a4951",
+      "shift": [
+        -2,
+        0
+      ],
+      "sha256": "6410bec4ff8dcc66630db40a0afa0b4af8e3a0a32380c51a1f35de0ba976daf9"
+    },
+    {
+      "path": "pic/train/dog_01.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_1",
+      "style": "seated mascot",
+      "angle": 2.231,
+      "color": "#dba2b4",
+      "shift": [
+        -2,
+        0
+      ],
+      "sha256": "afa8235ba26747f6b62293d1dd59f85059195b289416a6317ba59f5132e7d709"
+    },
+    {
+      "path": "pic/train/dog_02.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_1",
+      "style": "seated mascot",
+      "angle": -4.082,
+      "color": "#4a4951",
+      "shift": [
+        -1,
+        -2
+      ],
+      "sha256": "dd945d27d8679355be61e49b3f408335de72fb467660d8155ab59483ff840400"
+    },
+    {
+      "path": "pic/train/dog_03.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_1",
+      "style": "seated mascot",
+      "angle": 2.827,
+      "color": "#c89a70",
+      "shift": [
+        2,
+        -2
+      ],
+      "sha256": "03bc4ad676e042998dd488ff2c89ed93b3b140850b05c9426171b5e75bb98f5c"
+    },
+    {
+      "path": "pic/train/dog_04.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_1",
+      "style": "seated mascot",
+      "angle": 1.448,
+      "color": "#9aa5af",
+      "shift": [
+        -2,
+        -2
+      ],
+      "sha256": "0d38ed16d64db9ebab1af9374c7bca22d9fe415a735a146ee0c08d8f6701823a"
+    },
+    {
+      "path": "pic/train/dog_05.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_2",
+      "style": "large-head portrait",
+      "angle": -6.501,
+      "color": "#4a4951",
+      "shift": [
+        -1,
+        2
+      ],
+      "sha256": "053610585445cee443a9561d6b41b777d9cc4a64fbad5918fcf25b69da688e89"
+    },
+    {
+      "path": "pic/train/dog_06.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_2",
+      "style": "large-head portrait",
+      "angle": 1.632,
+      "color": "#c89a70",
+      "shift": [
+        2,
+        -1
+      ],
+      "sha256": "bd325a7fc1f5a59146755f839ca5a6f189c35449ef74b55b19654157e0c55840"
+    },
+    {
+      "path": "pic/train/dog_07.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_2",
+      "style": "large-head portrait",
+      "angle": 3.456,
+      "color": "#9aa5af",
+      "shift": [
+        2,
+        1
+      ],
+      "sha256": "6e030df7364f8082d88dd97a0d6aacdc6eeaefbdd2a3b8f96d025ad84083ff70"
+    },
+    {
+      "path": "pic/train/dog_08.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_2",
+      "style": "large-head portrait",
+      "angle": -4.473,
+      "color": "#dba2b4",
+      "shift": [
+        2,
+        0
+      ],
+      "sha256": "5de63f248c54e5831c088fe87222a9e30a447c42e4f507372f2f2ead4a709180"
+    },
+    {
+      "path": "pic/train/dog_09.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_3",
+      "style": "compact seated mascot",
+      "angle": 4.951,
+      "color": "#c89a70",
+      "shift": [
+        -2,
+        -1
+      ],
+      "sha256": "61bcd2fc30f47c89d68e31797d4c3be7e930371f281477f675381eafa2966b37"
+    },
+    {
+      "path": "pic/train/dog_10.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_3",
+      "style": "compact seated mascot",
+      "angle": 3.17,
+      "color": "#9aa5af",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "4e957187bb1e3ec4aeff22657a94e412c2f279e653cb35e3c5f997e0fc15b59c"
+    },
+    {
+      "path": "pic/train/dog_11.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_3",
+      "style": "compact seated mascot",
+      "angle": -5.512,
+      "color": "#dba2b4",
+      "shift": [
+        0,
+        -2
+      ],
+      "sha256": "3ad7737c9924a28decefa509a53ff2fad78cd77a60e859b832c6ea6627033e08"
+    },
+    {
+      "path": "pic/train/dog_12.png",
+      "split": "train",
+      "label": "dog",
+      "family_id": "dog_familiar_3",
+      "style": "compact seated mascot",
+      "angle": -6.516,
+      "color": "#4a4951",
+      "shift": [
+        -2,
+        0
+      ],
+      "sha256": "d306a1e3066f38532955814afe17a63063d97c0d45458617b9ec264c3f692618"
+    },
+    {
+      "path": "pic/val/cat_01.png",
+      "split": "val",
+      "label": "cat",
+      "family_id": "cat_familiar_1",
+      "style": "seated mascot",
+      "angle": 5.56,
+      "color": "#c89a70",
+      "shift": [
+        2,
+        0
+      ],
+      "sha256": "51716dfec96f561d69b29a26332e84a8bbaa0f15f34d27d3c4f5fcfc1d7dc793"
+    },
+    {
+      "path": "pic/val/cat_02.png",
+      "split": "val",
+      "label": "cat",
+      "family_id": "cat_familiar_1",
+      "style": "seated mascot",
+      "angle": 4.914,
+      "color": "#9aa5af",
+      "shift": [
+        1,
+        2
+      ],
+      "sha256": "9d2ae5e1a2ba72e5bd9b69f0cf0a472a02e66a60c75432b372a8cbc654b13339"
+    },
+    {
+      "path": "pic/val/cat_03.png",
+      "split": "val",
+      "label": "cat",
+      "family_id": "cat_familiar_2",
+      "style": "large-head portrait",
+      "angle": -6.003,
+      "color": "#9aa5af",
+      "shift": [
+        1,
+        -2
+      ],
+      "sha256": "26a547b4b3df9d9c0562f8c4d85039ee268a1cd3a0f3ca8fb6f1a800f936c655"
+    },
+    {
+      "path": "pic/val/cat_04.png",
+      "split": "val",
+      "label": "cat",
+      "family_id": "cat_familiar_2",
+      "style": "large-head portrait",
+      "angle": 0.833,
+      "color": "#dba2b4",
+      "shift": [
+        2,
+        0
+      ],
+      "sha256": "af256ab85c762d087068b1925691a6a716e602d05bae8593a5aa070b848df92f"
+    },
+    {
+      "path": "pic/val/cat_05.png",
+      "split": "val",
+      "label": "cat",
+      "family_id": "cat_familiar_3",
+      "style": "compact seated mascot",
+      "angle": 1.238,
+      "color": "#dba2b4",
+      "shift": [
+        -2,
+        -2
+      ],
+      "sha256": "dc061e056b4f392b0afc98fc8e262d8e1ef3759c56f5bddb157ffe3f06463cf3"
+    },
+    {
+      "path": "pic/val/cat_06.png",
+      "split": "val",
+      "label": "cat",
+      "family_id": "cat_familiar_3",
+      "style": "compact seated mascot",
+      "angle": 2.58,
+      "color": "#4a4951",
+      "shift": [
+        0,
+        -2
+      ],
+      "sha256": "5a9304585462266f0430d514d4c60fef15da8e6437d0ac8679bf28152bcd2916"
+    },
+    {
+      "path": "pic/val/dog_01.png",
+      "split": "val",
+      "label": "dog",
+      "family_id": "dog_familiar_1",
+      "style": "seated mascot",
+      "angle": 5.56,
+      "color": "#c89a70",
+      "shift": [
+        2,
+        0
+      ],
+      "sha256": "98ff4ddf93332a190c12e77755ac09690f6fe6e1a95044cab0d48275e1b4766e"
+    },
+    {
+      "path": "pic/val/dog_02.png",
+      "split": "val",
+      "label": "dog",
+      "family_id": "dog_familiar_1",
+      "style": "seated mascot",
+      "angle": 4.914,
+      "color": "#9aa5af",
+      "shift": [
+        1,
+        2
+      ],
+      "sha256": "07bfa623656ae3627305007bdfb9df9e6c13e663350810067ff71e7cec8b666c"
+    },
+    {
+      "path": "pic/val/dog_03.png",
+      "split": "val",
+      "label": "dog",
+      "family_id": "dog_familiar_2",
+      "style": "large-head portrait",
+      "angle": -6.003,
+      "color": "#9aa5af",
+      "shift": [
+        1,
+        -2
+      ],
+      "sha256": "8b2f3685779669357925bbb48984b5e9a5a8b5b9ea654f349f7e2c90e25688bf"
+    },
+    {
+      "path": "pic/val/dog_04.png",
+      "split": "val",
+      "label": "dog",
+      "family_id": "dog_familiar_2",
+      "style": "large-head portrait",
+      "angle": 0.833,
+      "color": "#dba2b4",
+      "shift": [
+        2,
+        0
+      ],
+      "sha256": "8b25cdda17cbe9b96c78b8127b381c2874f5a78ef175f088ba2184460d5c9626"
+    },
+    {
+      "path": "pic/val/dog_05.png",
+      "split": "val",
+      "label": "dog",
+      "family_id": "dog_familiar_3",
+      "style": "compact seated mascot",
+      "angle": 1.238,
+      "color": "#dba2b4",
+      "shift": [
+        -2,
+        -2
+      ],
+      "sha256": "bab93aaf2ce4a9d42de7ea0b37c60c7407642a28334617e07bd381b59f69aeb7"
+    },
+    {
+      "path": "pic/val/dog_06.png",
+      "split": "val",
+      "label": "dog",
+      "family_id": "dog_familiar_3",
+      "style": "compact seated mascot",
+      "angle": 2.58,
+      "color": "#4a4951",
+      "shift": [
+        0,
+        -2
+      ],
+      "sha256": "ea4f586b4430548f0fc28cebab43fe74ce5853171dc251e112a821bbf23b3a08"
+    },
+    {
+      "path": "pic/test/cat_01.png",
+      "split": "test",
+      "label": "cat",
+      "family_id": "cat_independent_1",
+      "style": "fine-line portrait",
+      "angle": 0.0,
+      "color": "#dba2b4",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "2736a6a1a0e561a369979f70d6ce9a2ba5cf6d71591c2fc26c1bd8090e1b6403"
+    },
+    {
+      "path": "pic/test/cat_02.png",
+      "split": "test",
+      "label": "cat",
+      "family_id": "cat_independent_2",
+      "style": "side-view illustration",
+      "angle": 0.0,
+      "color": "#4a4951",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "114dca7a83540ad7a9350a15410c629dfa0346b780047d56804fb438f1470ce1"
+    },
+    {
+      "path": "pic/test/cat_03.png",
+      "split": "test",
+      "label": "cat",
+      "family_id": "cat_independent_3",
+      "style": "sleepy reclining sketch",
+      "angle": 0.0,
+      "color": "#c89a70",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "3a0f92bf5393f6717fb6a469c481cd858525abc21656ec6aa4c999621e2c0a43"
+    },
+    {
+      "path": "pic/test/cat_04.png",
+      "split": "test",
+      "label": "cat",
+      "family_id": "cat_independent_4",
+      "style": "angular geometric portrait",
+      "angle": 0.0,
+      "color": "#9aa5af",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "27ed2d2eda04feb1be504b1025ad75ece956471bf24912597b5b66ee5d72febd"
+    },
+    {
+      "path": "pic/test/cat_05.png",
+      "split": "test",
+      "label": "cat",
+      "family_id": "cat_independent_5",
+      "style": "standing profile",
+      "angle": 0.0,
+      "color": "#dba2b4",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "72fb189731a11b2d6cdb32a65bdab75381e87420374b34a0eefd8cbb4c7cb250"
+    },
+    {
+      "path": "pic/test/cat_06.png",
+      "split": "test",
+      "label": "cat",
+      "family_id": "cat_independent_6",
+      "style": "round storybook portrait",
+      "angle": 0.0,
+      "color": "#4a4951",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "7f666257d46483dffd41fd52811cbb7e77d9f791be47749b55fff0db3e14f8e1"
+    },
+    {
+      "path": "pic/test/dog_01.png",
+      "split": "test",
+      "label": "dog",
+      "family_id": "dog_independent_1",
+      "style": "fine-line portrait",
+      "angle": 0.0,
+      "color": "#dba2b4",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "b2cdddbdf15e53d2b4e9b5f4121c1b75f046311db4141137ec144a139ebae4eb"
+    },
+    {
+      "path": "pic/test/dog_02.png",
+      "split": "test",
+      "label": "dog",
+      "family_id": "dog_independent_2",
+      "style": "side-view illustration",
+      "angle": 0.0,
+      "color": "#4a4951",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "f82d36b7a630344ba249a1931b809fb6daba376821d549f257cdc67d39c34bbf"
+    },
+    {
+      "path": "pic/test/dog_03.png",
+      "split": "test",
+      "label": "dog",
+      "family_id": "dog_independent_3",
+      "style": "sleepy reclining sketch",
+      "angle": 0.0,
+      "color": "#c89a70",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "980aff9935204d048e31539c31982abbb2404238ebe6c04d1b8d1a5ebab517b5"
+    },
+    {
+      "path": "pic/test/dog_04.png",
+      "split": "test",
+      "label": "dog",
+      "family_id": "dog_independent_4",
+      "style": "angular geometric portrait",
+      "angle": 0.0,
+      "color": "#9aa5af",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "98b8fbb3cbfe12b6cdb01246eaa6dcecb5cf3ac0411abf92519709aaec0c822d"
+    },
+    {
+      "path": "pic/test/dog_05.png",
+      "split": "test",
+      "label": "dog",
+      "family_id": "dog_independent_5",
+      "style": "standing profile",
+      "angle": 0.0,
+      "color": "#dba2b4",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "2ad9a57e9f51fad4c0595e76d1ccfa6c71199dbb5541122c7774b268016344b1"
+    },
+    {
+      "path": "pic/test/dog_06.png",
+      "split": "test",
+      "label": "dog",
+      "family_id": "dog_independent_6",
+      "style": "round storybook portrait",
+      "angle": 0.0,
+      "color": "#4a4951",
+      "shift": [
+        0,
+        0
+      ],
+      "sha256": "6ea4368b6307e6abe02385bd4695bed6e3d7c0aa6400facd48211fef47160508"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "run": "runs\\20261020T165045_185925Z",
+  "data_sha256": "c16ad3166ef0ece00bcd20137d13d25ed86f6fb3e4e86b13852abeda02cd6844",
+  "metrics": {
+    "synthetic": true,
+    "best_epoch": 98,
+    "best_validation_scaled_mse": 0.005569270811975002,
+    "test_count": 210,
+    "test_start": "2023-07-26",
+    "test_end": "2024-05-14",
+    "price_unit": "fictional price units",
+    "mse_unit": "fictional price units squared",
+    "lstm": {
+      "mae": 0.5728219895903085,
+      "mse": 0.5053254569633779,
+      "rmse": 0.7108624740154582
+    },
+    "persistence": {
+      "mae": 0.6153383380952381,
+      "mse": 0.6054935938731093,
+      "rmse": 0.7781346887738069
+    },
+    "caveat": "One frozen synthetic path; no evidence of real stock predictability.",
+    "protocol": "Rolling one-step; prior actual test prices are observed, not recursive forecasts.",
+    "outcome": "LSTM has lower test MAE on this synthetic run."
+  },
+  "config": {
+    "seed": 42,
+    "epochs": 100,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "lookback": 25,
+    "threads": 2,
+    "device": "cpu",
+    "data_path": "C:\\01_Workspace\\02_personal\\AI\\lilyana\\study\\class14_lstm_forecasting\\data\\synthetic_prices.csv",
+    "data_sha256": "c16ad3166ef0ece00bcd20137d13d25ed86f6fb3e4e86b13852abeda02cd6844",
+    "split_fractions": [
+      0.7,
+      0.15,
+      0.15
+    ],
+    "raw_rows": 1400,
+    "train_end_exclusive": 980,
+    "validation_end_exclusive": 1190,
+    "numpy_version": "2.5.4",
+    "torch_version": "2.14.1+cpu",
+    "selection": "Lowest validation scaled MSE over fixed epochs; test never selects.",
+    "evaluation": "Rolling one-step; prior actual test prices are observed, not recursive forecasts."
+  }
+}

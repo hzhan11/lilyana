@@ -1,0 +1,28 @@
+{
+  "synthetic": true,
+  "seed": 42,
+  "rows": 1400,
+  "calendar": "Weekdays only; exchange holidays are not modeled.",
+  "start_date": "2019-01-02",
+  "price_unit": "fictional price units",
+  "parameters": {
+    "start_price": 100,
+    "daily_log_drift": 0.0003,
+    "ar_coefficient": 0.55,
+    "innovation_std": 0.006,
+    "cycle_amplitudes": [
+      0.08,
+      0.04
+    ],
+    "cycle_divisors_in_days": [
+      95,
+      23
+    ]
+  },
+  "formula": "r[0]=0; r[t]=0.55*r[t-1]+Normal(0,0.006); price[t]=exp(log(100)+0.0003*t+0.08*sin(t/95)+0.04*sin(t/23)+cumsum(r)[t])",
+  "rng": "numpy.random.default_rng(seed), PCG64; draw days innovations, discard index 0",
+  "storage": "CSV prices rounded to six decimals; this CSV is the training source.",
+  "sha256": "c16ad3166ef0ece00bcd20137d13d25ed86f6fb3e4e86b13852abeda02cd6844",
+  "policy": "Frozen before training; do not regenerate or tune after seeing test results.",
+  "warning": "Synthetic educational data, not a real ticker or investment forecast."
+}
