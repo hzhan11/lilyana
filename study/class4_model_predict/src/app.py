@@ -14,7 +14,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.utils.validation import check_is_fitted
 
 
-CLASS3 = Path(__file__).resolve().parent.parent / "class3_training_model"
+CLASS3 = Path(__file__).resolve().parents[2] / "class3_training_model" / "src"
 DRAW_SIZE = 256
 
 

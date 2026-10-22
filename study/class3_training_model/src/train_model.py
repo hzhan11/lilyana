@@ -13,7 +13,7 @@ EPOCHS = 50
 LEARNING_RATE = 0.001
 
 CLASS3 = Path(__file__).resolve().parent
-DATA_DIR = CLASS3.parent / "class2_dataset_split"
+DATA_DIR = CLASS3.parent.parent / "class2_dataset_split" / "src"
 MODEL_PATH = CLASS3 / "weights.h5"
 PLOT_PATH = CLASS3 / "training_curves.png"
 

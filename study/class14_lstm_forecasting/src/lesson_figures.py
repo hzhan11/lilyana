@@ -37,16 +37,16 @@ def draw_lesson(run, prices, dates, splits, boundaries, history, predicted, base
     figure.text(0.08, 0.64, "2  Learn a small sequence model", fontsize=17, fontweight="bold")
     figure.text(0.10, 0.57, "[64, 25, 1] batch of windows  ->  LSTM(1, 32)  ->  last hidden output\n"
                 "->  Linear(32, 1)  ->  [64, 1] next-price estimates (last batch can be smaller)", fontsize=13)
-    figure.text(0.08, 0.46, "3  Run locally from this lesson folder", fontsize=17, fontweight="bold")
-    figure.text(0.10, 0.36,
-                "python -m pip install -r requirements.txt\n"
-                "python train_model.py\n"
-                "python -m unittest discover -s . -p \"test_*.py\" -v",
+    figure.text(0.08, 0.46, "3  Set up once, then run this lesson", fontsize=17, fontweight="bold")
+    figure.text(0.10, 0.35,
+                "Root setup (once): start.bat install / sh start.sh install\n"
+                "This class: start.bat training / sh start.sh training\n"
+                "Tests: start.bat test / sh start.sh test",
                 fontsize=13, family="monospace", linespacing=1.7)
     figure.text(0.10, 0.23, "The supplied CSV is already frozen. To create a fresh copy elsewhere:\n"
-                "python generate_data.py --output data\\new_prices.csv\n"
+                "start.bat generate --output data\\new_prices.csv (Windows example)\n"
                 "Existing files are refused unless --overwrite is explicitly supplied.", fontsize=12)
-    figure.text(0.08, 0.10, "No downloads. No pretrained weights. CPU only. No promises of profit.\n"
+    figure.text(0.08, 0.10, "No dataset downloads. No pretrained weights. CPU only. No promises of profit.\n"
                 "Do not change data or hyperparameters after inspecting this test result.", fontsize=13,
                 color="#9a3412")
     save(figure, folder, "01_hands_on.png")

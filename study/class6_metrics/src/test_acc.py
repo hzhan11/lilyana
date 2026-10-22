@@ -8,10 +8,10 @@ import numpy as np
 from PIL import Image
 
 
-STUDY = Path(__file__).resolve().parent.parent
-MODEL_PATH = STUDY / "class3_training_model" / "weights.h5"
-UNDERFITTING_MODEL_PATH = STUDY / "class3_training_model" / "weights_underfitting.h5"
-TEST_DIR = STUDY / "class2_dataset_split" / "test"
+STUDY = Path(__file__).resolve().parents[2]
+MODEL_PATH = STUDY / "class3_training_model" / "src" / "weights.h5"
+UNDERFITTING_MODEL_PATH = STUDY / "class3_training_model" / "src" / "weights_underfitting.h5"
+TEST_DIR = STUDY / "class2_dataset_split" / "src" / "test"
 
 
 def load_model(weights_path):

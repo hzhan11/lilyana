@@ -1,0 +1,6 @@
+keras>=3
+torch
+numpy
+Pillow
+matplotlib
+h5py

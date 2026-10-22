@@ -1,0 +1,13 @@
+-r ../study/class1_dataset_prepare/src/requirements.txt
+-r ../study/class2_dataset_split/src/requirements.txt
+-r ../study/class3_training_model/src/requirements.txt
+-r ../study/class4_model_predict/src/requirements.txt
+-r ../study/class5_training_flow/src/requirements.txt
+-r ../study/class6_metrics/src/requirements.txt
+-r ../study/class7_features_extraction/src/requirements.txt
+-r ../study/class8_cnn_playground/src/requirements.txt
+-r ../study/class9_overfitting_generalization/src/requirements.txt
+-r ../study/class13_house_price_regression/src/requirements.txt
+-r ../study/class14_lstm_forecasting/src/requirements.txt
+-r ../package1/requirements.txt
+-r ../package2/requirements.txt

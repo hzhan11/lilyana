@@ -1,0 +1,7 @@
+keras>=3
+torch
+numpy
+Pillow
+h5py
+scikit-learn
+joblib

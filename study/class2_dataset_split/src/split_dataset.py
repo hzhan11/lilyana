@@ -9,7 +9,7 @@ VAL_RATIO = 0.2
 TEST_RATIO = 0.2
 
 CLASS2 = Path(__file__).resolve().parent
-SOURCE = CLASS2.parent / "class1_dataset_prepare" / "png"
+SOURCE = CLASS2.parent.parent / "class1_dataset_prepare" / "src" / "png"
 
 
 def main():

@@ -8,9 +8,9 @@ import numpy as np
 from PIL import Image
 
 
-STUDY = Path(__file__).resolve().parent.parent
-IMAGE_PATH = STUDY / "class2_dataset_split" / "test" / "2_03.bmp"
-MODEL_PATH = STUDY / "class3_training_model" / "weights.h5"
+STUDY = Path(__file__).resolve().parents[2]
+IMAGE_PATH = STUDY / "class2_dataset_split" / "src" / "test" / "2_03.bmp"
+MODEL_PATH = STUDY / "class3_training_model" / "src" / "weights.h5"
 
 
 def main():

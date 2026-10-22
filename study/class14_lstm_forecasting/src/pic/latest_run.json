@@ -32,7 +32,7 @@
     "lookback": 25,
     "threads": 2,
     "device": "cpu",
-    "data_path": "C:\\01_Workspace\\02_personal\\AI\\lilyana\\study\\class14_lstm_forecasting\\data\\synthetic_prices.csv",
+    "data_path": "C:\\01_Workspace\\02_personal\\AI\\lilyana\\study\\class14_lstm_forecasting\\src\\data\\synthetic_prices.csv",
     "data_sha256": "c16ad3166ef0ece00bcd20137d13d25ed86f6fb3e4e86b13852abeda02cd6844",
     "split_fractions": [
       0.7,

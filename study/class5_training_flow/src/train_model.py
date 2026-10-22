@@ -10,7 +10,7 @@ from torch import nn
 EPOCHS = 50
 LEARNING_RATE = 0.001
 CLASS5 = Path(__file__).resolve().parent
-DATA_DIR = CLASS5.parent / "class2_dataset_split"
+DATA_DIR = CLASS5.parent.parent / "class2_dataset_split" / "src"
 MODEL_PATH = CLASS5 / "weights.pt"
 PLOT_PATH = CLASS5 / "training_curves.png"
 
