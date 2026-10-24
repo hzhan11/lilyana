@@ -1,0 +1,343 @@
+{
+  "model": "C:\\01_Workspace\\02_personal\\AI\\lilyana\\study\\class15_multi_tasks_learning\\src\\1.model",
+  "dataset": "C:\\01_Workspace\\02_personal\\AI\\lilyana\\study\\class15_multi_tasks_learning\\src\\pic\\data3",
+  "known_classes": [
+    "cat",
+    "dog",
+    "pig"
+  ],
+  "unseen_class_samples": 5,
+  "zero_division_policy": "Undefined precision, recall, and F1 are reported as 0.",
+  "full_dataset": {
+    "samples": 10,
+    "accuracy": 0.2,
+    "macro": {
+      "precision": 0.047619047619047616,
+      "recall": 0.16666666666666666,
+      "f1-score": 0.07407407407407407
+    },
+    "weighted": {
+      "precision": 0.05714285714285714,
+      "recall": 0.2,
+      "f1-score": 0.08888888888888888
+    },
+    "per_class": {
+      "cat": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 1.0
+      },
+      "dog": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 2.0
+      },
+      "pig": {
+        "precision": 0.2857142857142857,
+        "recall": 1.0,
+        "f1-score": 0.4444444444444444,
+        "support": 2.0
+      },
+      "rabbit": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 2.0
+      },
+      "bear": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 1.0
+      },
+      "fox": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 2.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    ],
+    "class_order": [
+      "cat",
+      "dog",
+      "pig",
+      "rabbit",
+      "bear",
+      "fox"
+    ],
+    "center": {
+      "mae_pixels": 11.05617904663086,
+      "mae_x_pixels": 12.888656616210938,
+      "mae_y_pixels": 9.223701477050781,
+      "rmse_pixels": 14.678094029527225,
+      "mean_distance_pixels": 17.338565221986233
+    }
+  },
+  "known_classes_only": {
+    "samples": 5,
+    "accuracy": 0.4,
+    "macro": {
+      "precision": 0.2222222222222222,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.26666666666666666
+    },
+    "weighted": {
+      "precision": 0.26666666666666666,
+      "recall": 0.4,
+      "f1-score": 0.32
+    },
+    "per_class": {
+      "cat": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 1.0
+      },
+      "dog": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 2.0
+      },
+      "pig": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1-score": 0.8,
+        "support": 2.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        2
+      ]
+    ],
+    "class_order": [
+      "cat",
+      "dog",
+      "pig"
+    ],
+    "center": {
+      "mae_pixels": 5.434574890136719,
+      "mae_x_pixels": 2.9809829711914064,
+      "mae_y_pixels": 7.888166809082032,
+      "rmse_pixels": 7.101827290829781,
+      "mean_distance_pixels": 8.758927713740373
+    }
+  },
+  "predictions": [
+    {
+      "filename": "image_01.png",
+      "actual": "pig",
+      "predicted": "pig",
+      "confidence": 0.9991545677185059,
+      "actual_center": [
+        107.0,
+        121.0
+      ],
+      "predicted_center": [
+        109.16569519042969,
+        109.38410186767578
+      ],
+      "known_class": true
+    },
+    {
+      "filename": "image_02.png",
+      "actual": "fox",
+      "predicted": "pig",
+      "confidence": 0.9999475479125977,
+      "actual_center": [
+        148.0,
+        126.0
+      ],
+      "predicted_center": [
+        111.77102661132812,
+        109.76368713378906
+      ],
+      "known_class": false
+    },
+    {
+      "filename": "image_03.png",
+      "actual": "cat",
+      "predicted": "dog",
+      "confidence": 0.9986758828163147,
+      "actual_center": [
+        77.0,
+        89.0
+      ],
+      "predicted_center": [
+        73.07538604736328,
+        91.24146270751953
+      ],
+      "known_class": true
+    },
+    {
+      "filename": "image_04.png",
+      "actual": "pig",
+      "predicted": "pig",
+      "confidence": 0.9999951124191284,
+      "actual_center": [
+        110.0,
+        107.0
+      ],
+      "predicted_center": [
+        112.82965087890625,
+        110.14115142822266
+      ],
+      "known_class": true
+    },
+    {
+      "filename": "image_05.png",
+      "actual": "bear",
+      "predicted": "pig",
+      "confidence": 0.9999575614929199,
+      "actual_center": [
+        137.0,
+        115.0
+      ],
+      "predicted_center": [
+        120.05509185791016,
+        105.65421295166016
+      ],
+      "known_class": false
+    },
+    {
+      "filename": "image_06.png",
+      "actual": "rabbit",
+      "predicted": "pig",
+      "confidence": 0.9971839785575867,
+      "actual_center": [
+        138.0,
+        82.0
+      ],
+      "predicted_center": [
+        115.93254852294922,
+        95.71929168701172
+      ],
+      "known_class": false
+    },
+    {
+      "filename": "image_07.png",
+      "actual": "rabbit",
+      "predicted": "pig",
+      "confidence": 0.998616099357605,
+      "actual_center": [
+        145.0,
+        96.0
+      ],
+      "predicted_center": [
+        113.21068572998047,
+        98.95158386230469
+      ],
+      "known_class": false
+    },
+    {
+      "filename": "image_08.png",
+      "actual": "dog",
+      "predicted": "pig",
+      "confidence": 0.9999978542327881,
+      "actual_center": [
+        128.0,
+        119.0
+      ],
+      "predicted_center": [
+        126.18021392822266,
+        112.97261047363281
+      ],
+      "known_class": true
+    },
+    {
+      "filename": "image_09.png",
+      "actual": "dog",
+      "predicted": "cat",
+      "confidence": 0.9268369078636169,
+      "actual_center": [
+        62.0,
+        144.0
+      ],
+      "predicted_center": [
+        66.16516876220703,
+        127.58506774902344
+      ],
+      "known_class": true
+    },
+    {
+      "filename": "image_10.png",
+      "actual": "fox",
+      "predicted": "dog",
+      "confidence": 0.9170714020729065,
+      "actual_center": [
+        93.0,
+        71.0
+      ],
+      "predicted_center": [
+        99.95100402832031,
+        81.54320526123047
+      ],
+      "known_class": false
+    }
+  ]
+}

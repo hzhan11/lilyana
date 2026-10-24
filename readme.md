@@ -60,7 +60,7 @@ sh start.sh app
 ```
 
 The root `install` command creates or reuses the repository's `.venv` and installs
-dependencies for **all 11 lessons and package1/package2** in one pip operation.
+dependencies for **all 12 lessons and package1/package2** in one pip operation.
 `src/requirements.txt` includes the individual requirement files, so their
 constraints are resolved together. The first installation needs network access
 unless the packages are available in your pip cache or configured package source.
@@ -144,6 +144,7 @@ codes are returned unchanged.
 | Class 9: Overfitting and generalization | `generate`: `generate_data.py`; `training`: `train_model.py` | `.\start.bat training --epochs 20` |
 | Class 13: House-price regression | `generate`, `training`, `predict`: corresponding `.py` files | `.\start.bat predict --area 120 --rooms 3` |
 | Class 14: LSTM forecasting | `generate`: `generate_data.py`; `training`: `train_model.py` | `.\start.bat training --epochs 20` |
+| Class 15: Animal labels and centers | `app`: `pic/app.py`; `training`: `train.py`; `mtrain`: `mtrain.py`; `test`: `test.py`; `check`: unit tests | `.\start.bat mtrain`; `.\start.bat test m` (or `1` / `2`) |
 
 Class 2 recreates its `src/train`, `src/val`, and `src/test` directories. Back up
 custom data first. Training in Classes 3, 5, and 7 overwrites existing models and
@@ -181,11 +182,22 @@ root to avoid conflicts between identically named Python modules:
 .\study\class9_overfitting_generalization\start.bat test
 .\study\class13_house_price_regression\start.bat test
 .\study\class14_lstm_forecasting\start.bat test
+.\study\class15_multi_tasks_learning\start.bat check
 ```
 
 Each command runs `python -m unittest discover -s . -p "test_*.py" -v` in the
 lesson's source directory. Class 14's published-result reproduction test uses
 existing run records and is skipped if no published run exists.
+
+Class 15's `test` action evaluates saved models on `src/pic/data3`, rather than
+running code checks. Run `training 1` and `training 2` first to create `src/1.model`
+and `src/2.model`, then use `test 1`, `test 2`, or `test` (both). Reports include
+classification metrics, confusion matrices, and center errors. Full six-class
+and known-class-only scores are separate because those models learn three classes.
+Alternatively, `mtrain` trains all six classes on data1 + data2 and saves
+`src/m.model`; `test m` evaluates that combined model on data3.
+All Class 15 training modes use a seeded, stratified 80/20 train/validation
+split and report both sets' metrics. data3 is reserved for testing.
 
 Class 6 provides actual model evaluation demonstrations rather than `unittest`
 tests. Inside its lesson directory, run all demonstrations or select one:

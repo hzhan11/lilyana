@@ -95,11 +95,51 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(launcher.commands_for("8", "training"), [["app.py"]])
         self.assertEqual(launcher.commands_for("7", "cnn"), [["train_cnn.py"]])
 
+    def test_class15_training_forwards_dataset_and_options(self):
+        for action in ("training", "train", "train.py"):
+            with self.subTest(action=action):
+                with patch.object(
+                    launcher.subprocess, "run", return_value=subprocess.CompletedProcess([], 0),
+                ) as run:
+                    self.assertEqual(
+                        launcher.main(["--lesson", "15", action, "2", "--epochs", "1"]), 0,
+                    )
+                run.assert_called_once_with(
+                    [sys.executable, "train.py", "2", "--epochs", "1"],
+                    cwd=launcher.source_dir("15"), check=False,
+                )
+
     def test_unit_tests_are_discovered_in_each_source_directory(self):
         for target in launcher.UNIT_TEST_TARGETS:
-            command, = launcher.commands_for(target, "test")
+            command, = launcher.commands_for(target, "check" if target == "15" else "test")
             self.assertEqual(command[:3], ["-m", "unittest", "discover"])
             self.assertIn("test_*.py", command)
+
+    def test_class15_model_evaluation_is_separate_from_code_checks(self):
+        self.assertEqual(launcher.commands_for("15", "test"), [["test.py"]])
+        with patch.object(
+            launcher.subprocess, "run", return_value=subprocess.CompletedProcess([], 0),
+        ) as run:
+            self.assertEqual(launcher.main(["--lesson", "15", "test", "2"]), 0)
+        run.assert_called_once_with(
+            [sys.executable, "test.py", "2"], cwd=launcher.source_dir("15"), check=False,
+        )
+
+    def test_class15_combined_training_and_evaluation(self):
+        for action, args, filename in (
+            ("mtrain", ["--epochs", "1"], "mtrain.py"),
+            ("mtrain.py", ["--epochs", "1"], "mtrain.py"),
+            ("test", ["m"], "test.py"),
+            ("test.py", ["m"], "test.py"),
+        ):
+            with self.subTest(action=action):
+                with patch.object(
+                    launcher.subprocess, "run", return_value=subprocess.CompletedProcess([], 0),
+                ) as run:
+                    self.assertEqual(launcher.main(["--lesson", "15", action, *args]), 0)
+                run.assert_called_once_with(
+                    [sys.executable, filename, *args], cwd=launcher.source_dir("15"), check=False,
+                )
 
     def test_metrics_test_runs_all_three_programs(self):
         self.assertEqual(

@@ -11,3 +11,4 @@
 - [Class 9: Overfitting and Generalization](class9_overfitting_generalization/readme.md)
 - [Class 13: House-Price Regression](class13_house_price_regression/readme.md)
 - [Class 14: LSTM Time-Series Forecasting](class14_lstm_forecasting/readme.md)
+- [Class 15: Animal Classes and Center Coordinates](class15_multi_tasks_learning/readme.md)

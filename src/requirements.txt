@@ -9,5 +9,6 @@
 -r ../study/class9_overfitting_generalization/src/requirements.txt
 -r ../study/class13_house_price_regression/src/requirements.txt
 -r ../study/class14_lstm_forecasting/src/requirements.txt
+-r ../study/class15_multi_tasks_learning/src/requirements.txt
 -r ../package1/requirements.txt
 -r ../package2/requirements.txt

@@ -30,6 +30,9 @@ PROGRAMS = {
     "14": ("study/class14_lstm_forecasting", {
         "generate": "generate_data.py", "training": "train_model.py",
     }),
+    "15": ("study/class15_multi_tasks_learning", {
+        "app": "pic/app.py", "training": "train.py", "mtrain": "mtrain.py", "test": "test.py",
+    }),
     "package1": ("package1", {
         "training": "train_breast_cancer.py", "figures": "make_teaching_images.py",
     }),
@@ -38,7 +41,7 @@ PROGRAMS = {
         "figures": "make_teaching_images.py",
     }),
 }
-UNIT_TEST_TARGETS = {"8", "9", "13", "14", "package2"}
+UNIT_TEST_TARGETS = {"8", "9", "13", "14", "15", "package2"}
 
 
 def source_dir(target):
@@ -56,7 +59,9 @@ def resolve_target(value):
 
 def actions_for(target):
     actions = list(PROGRAMS[target][1])
-    if target in UNIT_TEST_TARGETS or target == "6":
+    if target == "15":
+        actions.append("check")
+    elif target in UNIT_TEST_TARGETS or target == "6":
         actions.append("test")
     return actions
 
@@ -68,7 +73,9 @@ def commands_for(target, action):
             "Install dependencies once from the repository root: "
             "start.bat install (Windows) or sh start.sh install (Linux/macOS)."
         )
-    if action == "test":
+    if action == "check" and target == "15":
+        return [["-m", "unittest", "discover", "-s", ".", "-p", "test_*.py", "-v"]]
+    if action == "test" and target != "15":
         if target in UNIT_TEST_TARGETS:
             return [["-m", "unittest", "discover", "-s", ".", "-p", "test_*.py", "-v"]]
         if target == "6":
@@ -105,7 +112,12 @@ def lesson_main(target, argv):
     folder, programs = PROGRAMS[target]
     details = ["Actions:"]
     details.extend(f"  {action:<11} {filename}" for action, filename in programs.items())
-    if "test" in actions_for(target):
+    if target == "15":
+        details.append("              training 1 / training 2: train data1 / data2")
+        details.append("              mtrain: train all six classes on data1 + data2")
+        details.append("              test [1|2|m]: evaluate on pic/data3; omit model for 1 and 2")
+        details.append("  check       Run this lesson's automated code tests")
+    elif "test" in actions_for(target):
         details.append("  test        Run this lesson's tests/evaluation programs")
     details.extend([
         "",
