@@ -114,7 +114,7 @@ def lesson_main(target, argv):
     details.extend(f"  {action:<11} {filename}" for action, filename in programs.items())
     if target == "15":
         details.append("              training 1 / training 2: train data1 / data2")
-        details.append("              mtrain: train all six classes on data1 + data2")
+        details.append("              mtrain: six classes; 40 train + 10 val from each of data1 and data2")
         details.append("              test [1|2|m]: evaluate on pic/data3; omit model for 1 and 2")
         details.append("              test compare: compare all three models and save charts under runs")
         details.append("  check       Run this lesson's automated code tests")

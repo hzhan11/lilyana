@@ -112,14 +112,18 @@ class ModelTests(unittest.TestCase):
                     self.assertEqual(checkpoint["input_shape"], [200, 200, 4])
                     self.assertEqual(len(checkpoint["history"]), 2)
                     split = checkpoint["split"]
-                    self.assertEqual(split["train_samples"], len(data) * 8 // 10)
-                    self.assertEqual(split["validation_samples"], len(data) * 2 // 10)
+                    self.assertEqual(split["train_samples"], 80)
+                    self.assertEqual(split["validation_samples"], 20)
                     self.assertTrue(set(split["train_indices"]).isdisjoint(split["validation_indices"]))
                     self.assertEqual(
-                        set(split["train_indices"]) | set(split["validation_indices"]),
+                        set(split["train_indices"]) | set(split["validation_indices"])
+                        | set(split["unused_indices"]),
                         set(range(len(data))),
                     )
-                    training, validation = split_dataset(data, checkpoint["config"]["seed"])
+                    self.assertEqual(len(split["unused_indices"]), 100 if dataset == "m" else 0)
+                    training, validation = split_dataset(
+                        data, checkpoint["config"]["seed"], combined=dataset == "m",
+                    )
                     self.assertEqual(split["train_indices"], training.indices)
                     self.assertEqual(split["validation_indices"], validation.indices)
                     model = AnimalCNN(len(classes))
@@ -139,22 +143,54 @@ class ModelTests(unittest.TestCase):
             self.assertTrue((Path(temporary) / "m.model").is_file())
 
     def test_split_is_exact_disjoint_stratified_and_reproducible_in_all_modes(self):
-        for size, classes in ((100, 3), (200, 6)):
+        for size, classes, combined in ((100, 3, False), (200, 6, True)):
             labels = torch.tensor([index % classes for index in range(size)])
             data = torch.utils.data.TensorDataset(torch.zeros(size, 1), labels)
-            training, validation = split_dataset(data, 42)
-            repeated_train, repeated_validation = split_dataset(data, 42)
-            changed_train, _ = split_dataset(data, 43)
-            self.assertEqual(len(training), size * 8 // 10)
-            self.assertEqual(len(validation), size * 2 // 10)
+            training, validation = split_dataset(data, 42, combined=combined)
+            repeated_train, repeated_validation = split_dataset(data, 42, combined=combined)
+            changed_train, _ = split_dataset(data, 43, combined=combined)
+            self.assertEqual(len(training), 80)
+            self.assertEqual(len(validation), 20)
             self.assertTrue(set(training.indices).isdisjoint(validation.indices))
-            self.assertEqual(set(training.indices) | set(validation.indices), set(range(size)))
+            self.assertEqual(len(set(training.indices) | set(validation.indices)), 100)
             self.assertEqual(training.indices, repeated_train.indices)
             self.assertEqual(validation.indices, repeated_validation.indices)
             self.assertNotEqual(training.indices, changed_train.indices)
             self.assertIs(training.dataset, data)
             for subset in (training, validation):
                 self.assertEqual(set(labels[subset.indices].tolist()), set(range(classes)))
+
+    def test_combined_split_takes_40_train_10_val_per_source_without_crossing_baseline_splits(self):
+        for seed in (0, 42, 123):
+            labels = torch.tensor(([0] * 34 + [1] * 33 + [2] * 33)
+                                  + ([3] * 34 + [4] * 33 + [5] * 33))
+            data = torch.utils.data.TensorDataset(torch.zeros(200, 1), labels)
+            training, validation = split_dataset(data, seed, combined=True)
+            for offset in (0, 100):
+                source = torch.utils.data.TensorDataset(
+                    torch.zeros(100, 1), labels[offset:offset + 100],
+                )
+                baseline_train, baseline_val = split_dataset(source, seed)
+                selected_train = {index - offset for index in training.indices if offset <= index < offset + 100}
+                selected_val = {index - offset for index in validation.indices if offset <= index < offset + 100}
+                self.assertEqual(len(selected_train), 40)
+                self.assertEqual(len(selected_val), 10)
+                self.assertTrue(selected_train <= set(baseline_train.indices))
+                self.assertTrue(selected_val <= set(baseline_val.indices))
+                self.assertTrue(selected_train.isdisjoint(selected_val))
+
+    def test_combined_split_uses_all_samples_at_minimum_and_rejects_insufficient_sources(self):
+        labels = torch.empty(100, dtype=torch.long)
+        data = torch.utils.data.TensorDataset(torch.zeros(100, 1), labels)
+        labels[:50] = torch.arange(50) % 3
+        labels[50:] = 3 + torch.arange(50) % 3
+        training, validation = split_dataset(data, combined=True)
+        self.assertEqual(len(training), 80)
+        self.assertEqual(len(validation), 20)
+        self.assertEqual(set(training.indices) | set(validation.indices), set(range(100)))
+        small = torch.utils.data.TensorDataset(torch.zeros(99, 1), labels[:99])
+        with self.assertRaisesRegex(ValueError, "at least 50 images from data2"):
+            split_dataset(small, combined=True)
 
     def test_validation_samples_never_receive_gradient_updates(self):
         size = 20

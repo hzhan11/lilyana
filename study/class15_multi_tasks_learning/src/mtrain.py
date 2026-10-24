@@ -1,4 +1,4 @@
-"""Train one six-class model on data1 and data2, without using data3."""
+"""Train six classes with 40 train + 10 validation images each from data1 and data2."""
 
 from train import main as training_main
 

@@ -10,6 +10,7 @@ from unittest.mock import patch
 from PIL import Image, ImageChops
 
 from pic.app import DatasetViewer, display_geometry, load_samples
+from pic.dataset import UNSEEN_ANIMALS
 
 
 def write_dataset(folder, lines):
@@ -39,13 +40,13 @@ class LabelTests(unittest.TestCase):
         self.assertEqual(load_samples(labels)[0].center, (0, 199.5))
 
     def test_accepts_the_three_new_animal_classes(self):
-        for animal in ("rabbit", "bear", "fox"):
+        for animal in ("rabbit", "bear", "fox", *UNSEEN_ANIMALS):
             with self.subTest(animal=animal):
                 labels = write_dataset(self.folder, [f"image.png,{animal},[82,100]"])
                 self.assertEqual(load_samples(labels)[0].animal, animal)
 
     def test_rejects_malformed_and_empty_labels(self):
-        for line in ("", "image.png,cat", "image.png,cat,not-json", "image.png,bird,[1,2]"):
+        for line in ("", "image.png,cat", "image.png,cat,not-json", "image.png,dragon,[1,2]"):
             with self.subTest(line=line):
                 labels = write_dataset(self.folder, [line])
                 with self.assertRaises(ValueError):
@@ -90,7 +91,7 @@ class LabelTests(unittest.TestCase):
         for dataset, animals in (
             ("data1", {"cat", "dog", "pig"}),
             ("data2", {"rabbit", "bear", "fox"}),
-            ("data3", {"cat", "dog", "pig", "rabbit", "bear", "fox"}),
+            ("data3", set(UNSEEN_ANIMALS)),
         ):
             with self.subTest(dataset=dataset):
                 folder = Path(__file__).resolve().parent / "pic" / dataset

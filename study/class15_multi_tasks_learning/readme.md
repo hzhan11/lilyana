@@ -46,10 +46,11 @@ image_02.png,pig,[130,100]
 `data1` contains 100 cat/dog/pig images; `data2` contains 100 rabbit/bear/fox
 images. Their original ten images are preserved; each has 90 additional
 randomly recolored, resized, rotated, and positioned animal drawings.
-`data3` contains ten randomly colored and positioned images mixing all
-six classes: cat, dog, pig, rabbit, bear, and fox. All three datasets use
-200-by-200 PNGs and the same center-label format. The viewer accepts all six
-animal classes.
+`data3` contains ten randomly colored and positioned drawings of **unseen
+animals**: elephant, lion, turtle, bird, fish, cow, horse, sheep, zebra, and
+giraffe (one each). None belongs to the six training classes. All three datasets
+use 200-by-200 PNGs and the same center-label format. The viewer accepts both
+the six training classes and these ten new labels.
 
 Select a folder to load its labels, then select an image or use **Previous** and
 **Next**. A red circle and crosshair show its labeled center. The details line
@@ -94,8 +95,10 @@ To train **one six-class model on data1 + data2 together**:
 ```
 
 On Linux/macOS use `sh start.sh mtrain`. Direct execution from `src` is
-`python mtrain.py`. This loads all 200 available images, preserves the separate
-labels for identically named files in the two folders, and saves **`src/m.model`**.
+`python mtrain.py`. This selects 50 images from each dataset: 40 for training and
+10 for validation, for a total of **80 train + 20 validation images**. It preserves
+the separate labels for identically named files in the two folders and saves
+**`src/m.model`**. The other 100 available images are unused for that run.
 It trains a fresh model rather than merging the weights of `1.model` and
 `2.model`. **data3 is never used for training.**
 `mtrain` accepts the same optional training settings as `training 1` / `training 2`,
@@ -110,11 +113,18 @@ All three training modes use a fixed **80% train / 20% validation** split:
 |---|---:|---:|
 | `training 1` | 80 | 20 |
 | `training 2` | 80 | 20 |
-| `mtrain` | 160 | 40 |
+| `mtrain` | 80 (40 from each source) | 20 (10 from each source) |
 
 The split is shuffled and stratified by animal class to keep class proportions
 similar in both subsets. `--seed` controls the split and training randomness;
 the same seed and unchanged label order reproduce the same memberships.
+For `mtrain`, each source first uses the same seeded 80/20 partition as its
+single-dataset baseline. It then selects 40 stratified training images from
+that source's 80-image training pool and 10 stratified validation images from
+its 20-image validation pool. This keeps image counts equal across all three
+models and prevents an image from changing its train/validation role between
+the baseline and combined model. A custom source needs at least 50 images for
+combined training, with enough examples per class for stratification.
 Only training batches receive gradient updates. Validation runs in evaluation
 mode without gradients after every epoch. data3 remains separate for testing.
 Custom datasets need enough samples for every class to appear in both subsets;
@@ -151,7 +161,8 @@ epoch's updates (printed on epoch 1, every 10 epochs, and the final epoch).
 Checkpoints are saved separately as **`src/1.model`**, **`src/2.model`**, and
 **`src/m.model`**. Re-running a training mode replaces only its own checkpoint.
 Each checkpoint contains model weights, ordered class names, input shape,
-coordinate scale, training settings, split memberships and counts, and per-epoch
+coordinate scale, training settings, split memberships and counts, unused
+image indices, and per-epoch
 train/validation metrics. History keys `loss`, `accuracy`, and `center_mae_pixels`
 refer to training data; `val_loss`, `val_accuracy`, and `val_center_mae_pixels`
 refer to validation data. Saved indices follow label-file order (data1 followed
@@ -178,7 +189,8 @@ with torch.no_grad():
 animals = [checkpoint["classes"][index] for index in logits.argmax(dim=1).tolist()]
 ```
 
-These datasets have 100 images each (200 combined), split as shown above.
+These datasets have 100 available images each (200 combined). Each training
+mode uses 100 images in total, partitioned as shown above.
 Training and validation scores are reported separately; neither is a data3
 test score. Because augmented images share original drawing templates, an
 image-level train/validation split is not an independent new-template benchmark.
@@ -214,18 +226,20 @@ It reports:
 - Center MAE and RMSE over x/y coordinates, plus mean Euclidean center distance
   in pixels. The JSON also contains separate x and y MAE values.
 
-**Models 1 and 2 each know only three classes, but data3 contains six.** Two evaluations
-are shown separately: the complete six-class data3 set (unseen-class images
-count as incorrect), and only images whose animal class the model learned
-(three-class metrics). Nothing is silently discarded from the full scores.
-The current data3 has five known and five unseen images for either model, so
-its full-dataset accuracy cannot exceed 50% for either three-class model.
-Center errors are reported for both groups as well.
+**All ten data3 animals are unseen by all three models.** Models 1 and 2 each
+predict only three training classes; model m predicts only the six training
+classes. None can output the new animal labels, so full-dataset accuracy,
+precision, recall, and F1 are **zero by design**, not evidence of a loader
+failure. Known-class-only results are **N/A** because there are no known-class
+images. Center errors remain meaningful and are calculated for all ten images.
 
-**Model m knows all six classes.** Its full-dataset and known-class-only reports
-both include all ten data3 images and therefore match; it has no unseen-class
-images and no three-class accuracy ceiling. It still needs to generalize to
-the changed colors, sizes, and positions in data3.
+Full scores and confusion matrices include the union of the six training
+classes and the unseen labels actually present in the test set (currently 16
+labels), so no unseen ground-truth rows are dropped. If a custom test folder
+contains known classes, a separate known-class-only report is also produced.
+These are closed-set classifiers: they still predict one of their trained
+classes, not an automatic "unknown" label. A high confidence on an unseen
+animal does not make that classification correct.
 
 Undefined precision, recall, and F1 are explicitly reported as zero.
 Macro averages give each evaluated class equal weight; weighted averages use
@@ -264,16 +278,17 @@ Outputs are saved under **`src/runs/evaluation`**:
 
 The full-dataset panels use the same images for every model. Known-class-only
 panels explicitly show their different sample counts; those scores are not
-like-for-like six-class comparisons. Undefined known-class results appear as
+like-for-like full-test comparisons. Undefined known-class results appear as
 N/A, not zero. Higher classification scores are better; lower center errors
 are better. The charts are rendered headlessly and do not open a GUI.
 Use `--output-dir` to change the chart/report directory. Re-running comparison
 replaces these outputs without changing model weights or images.
 
-This is a tiny synthetic demonstration: data3 uses recolored, resized, and
-repositioned versions of the original animal drawings. These related images
-are not an independent real-world test set, so good scores do not establish
-generalization to genuinely new animal drawings or photographs.
+This is a tiny synthetic out-of-distribution demonstration, not a benchmark
+for ordinary known-animal classification. data3's drawings are newly generated
+for different animal types, rather than recolored training animals. Center
+localization can be compared across the models, but a useful known-class
+classification benchmark would require a separate set of known-animal images.
 
 ## Automated Code Checks
 

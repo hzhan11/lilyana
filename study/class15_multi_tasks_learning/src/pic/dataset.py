@@ -9,6 +9,7 @@ from PIL import Image
 
 
 ANIMALS = ("cat", "dog", "pig", "rabbit", "bear", "fox")
+UNSEEN_ANIMALS = ("elephant", "lion", "turtle", "bird", "fish", "cow", "horse", "sheep", "zebra", "giraffe")
 
 
 @dataclass(frozen=True)
@@ -37,8 +38,10 @@ def load_samples(label_file):
             raise ValueError(f"{context}: expected a PNG filename without a directory.")
         if filename.casefold() in filenames:
             raise ValueError(f"{context}: duplicate image filename {filename}.")
-        if animal not in ANIMALS:
-            raise ValueError(f"{context}: unknown animal {animal!r}; expected {', '.join(ANIMALS)}.")
+        if animal not in (*ANIMALS, *UNSEEN_ANIMALS):
+            raise ValueError(
+                f"{context}: unknown animal {animal!r}; expected {', '.join((*ANIMALS, *UNSEEN_ANIMALS))}."
+            )
         try:
             center = json.loads(coordinates)
         except json.JSONDecodeError as error:

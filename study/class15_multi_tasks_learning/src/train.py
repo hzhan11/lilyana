@@ -50,11 +50,33 @@ def samples_to_tensors(samples, classes):
     )
 
 
-def split_dataset(data, seed=42):
-    train_indices, validation_indices = train_test_split(
-        list(range(len(data))), test_size=0.2, random_state=seed,
-        stratify=data.tensors[1].tolist(),
-    )
+def split_dataset(data, seed=42, *, combined=False):
+    labels = data.tensors[1].tolist()
+    if not combined:
+        train_indices, validation_indices = train_test_split(
+            list(range(len(data))), test_size=0.2, random_state=seed, stratify=labels,
+        )
+        return Subset(data, train_indices), Subset(data, validation_indices)
+
+    train_indices, validation_indices = [], []
+    for number in (1, 2):
+        source_classes = {ANIMALS.index(name) for name in DATASET_CLASSES[number]}
+        source = [index for index, label in enumerate(labels) if label in source_classes]
+        if len(source) < 50:
+            raise ValueError(f"Combined training requires at least 50 images from data{number}.")
+        source_train, source_validation = train_test_split(
+            source, test_size=0.2, random_state=seed, stratify=[labels[index] for index in source],
+        )
+        for pool, size, destination in (
+            (source_train, 40, train_indices), (source_validation, 10, validation_indices),
+        ):
+            selected = pool
+            if len(pool) > size:
+                selected, _ = train_test_split(
+                    pool, train_size=size, random_state=seed,
+                    stratify=[labels[index] for index in pool],
+                )
+            destination.extend(selected)
     return Subset(data, train_indices), Subset(data, validation_indices)
 
 
@@ -90,7 +112,7 @@ def train(dataset, *, epochs=100, batch_size=5, learning_rate=0.001, seed=42,
     if type(seed) is not int or not 0 <= seed < 2**32:
         raise ValueError("seed must be an integer between 0 and 2**32 - 1.")
     data, classes = load_dataset(dataset, base_dir)
-    training, validation = split_dataset(data, seed)
+    training, validation = split_dataset(data, seed, combined=dataset == "m")
     torch.manual_seed(seed)
     model = AnimalCNN(num_classes=len(classes))
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
@@ -99,9 +121,12 @@ def train(dataset, *, epochs=100, batch_size=5, learning_rate=0.001, seed=42,
     training_evaluation_loader = DataLoader(training, batch_size=batch_size)
     validation_loader = DataLoader(validation, batch_size=batch_size)
     source = "data1 + data2" if dataset == "m" else f"data{dataset}"
-    print(f"Training {source}: {len(data)} images | classes: {', '.join(classes)}", flush=True)
+    print(f"Training {source}: {len(training) + len(validation)} selected"
+          f" / {len(data)} available images | classes: {', '.join(classes)}", flush=True)
     print(f"80/20 stratified split | train: {len(training)}"
           f" | validation: {len(validation)} | seed: {seed}", flush=True)
+    if dataset == "m":
+        print("Each source contributes 40 train + 10 validation images.", flush=True)
     history = []
     for epoch in range(1, epochs + 1):
         model.train()
@@ -132,9 +157,13 @@ def train(dataset, *, epochs=100, batch_size=5, learning_rate=0.001, seed=42,
         "config": {"epochs": epochs, "batch_size": batch_size,
                    "learning_rate": learning_rate, "seed": seed, "center_loss_weight": 10,
                    "validation_fraction": 0.2},
-        "split": {"method": "stratified_random", "train_indices": training.indices,
+        "split": {"method": "per_source_subsampled_stratified" if dataset == "m" else "stratified_random",
+                  "train_indices": training.indices,
                   "validation_indices": validation.indices,
-                  "train_samples": len(training), "validation_samples": len(validation)},
+                  "train_samples": len(training), "validation_samples": len(validation),
+                  "unused_indices": sorted(
+                      set(range(len(data))) - set(training.indices) - set(validation.indices),
+                  )},
         "history": history,
     }, checkpoint)
     print(f"Saved checkpoint: {checkpoint}", flush=True)
@@ -142,7 +171,10 @@ def train(dataset, *, epochs=100, batch_size=5, learning_rate=0.001, seed=42,
 
 
 def main(argv=None, *, combined=False):
-    description = "Train all six animals on data1 + data2 and save m.model." if combined else __doc__
+    description = (
+        "Train all six animals using 40 train + 10 validation images per source and save m.model."
+        if combined else __doc__
+    )
     parser = argparse.ArgumentParser(description=description)
     if combined:
         parser.set_defaults(dataset="m")

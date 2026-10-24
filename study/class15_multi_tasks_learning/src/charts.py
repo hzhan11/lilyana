@@ -20,6 +20,7 @@ def grouped_bars(axis, labels, rows, legends, *, percentage):
         bars = axis.bar(positions, values, width, label=legend, color=color)
         annotations = [
             "" if not math.isfinite(value) else
+            "" if percentage and len(labels) > 8 and value == 0 else
             f"{value:.0%}" if percentage else f"{value:.1f}"
             for value in values
         ]
@@ -28,6 +29,7 @@ def grouped_bars(axis, labels, rows, legends, *, percentage):
             if not math.isfinite(value):
                 axis.text(position, 0.02, "N/A", ha="center", fontsize=8)
     axis.set_xticks(range(len(labels)), labels)
+    axis.set_xlim(-0.6, len(labels) - 0.4)
     axis.set_axisbelow(True)
     axis.grid(axis="y", alpha=0.2)
     axis.legend(fontsize=8)
@@ -62,7 +64,7 @@ def write_comparison(reports, output_dir):
         raise ValueError("Comparison reports must use the same class order.")
     destination = Path(output_dir)
     destination.mkdir(parents=True, exist_ok=True)
-    figure = Figure(figsize=(15, 11), layout="constrained")
+    figure = Figure(figsize=(max(15, len(classes) * 1.2), 11), layout="constrained")
     FigureCanvasAgg(figure)
     axes = figure.subplots(2, 2)
     legends = [f"Model {name} (n={report['full_dataset']['samples']})"
@@ -73,7 +75,7 @@ def write_comparison(reports, output_dir):
         [classification_values(report["full_dataset"]) for report in ordered],
         legends, percentage=True,
     )
-    axes[0, 0].set_title("All images, six-class scores - higher is better")
+    axes[0, 0].set_title(f"All images, {len(classes)}-class scores - higher is better")
     known_legends = [
         f"Model {name} (n={report['known_classes_only']['samples'] if report['known_classes_only'] else 0})"
         for name, report in zip(MODELS, ordered)
@@ -98,16 +100,22 @@ def write_comparison(reports, output_dir):
         legends, percentage=True,
     )
     axes[1, 1].set_title("Per-class F1 on all images - higher is better")
+    if all(report["full_dataset"]["per_class"][animal]["f1-score"] == 0
+           for report in ordered for animal in classes):
+        axes[1, 1].text(0.5, 0.5, "All models: F1 = 0 for every class",
+                        transform=axes[1, 1].transAxes, ha="center")
+    axes[1, 1].tick_params(axis="x", labelrotation=45 if len(classes) > 6 else 0)
     figure.suptitle(
         "Models 1 vs 2 vs m: test-set comparison\n"
-        "Models 1/2 know three classes each; m knows all six. Unseen classes count as incorrect.",
+        "Models 1/2 know three classes each; m knows six trained classes. Unseen classes count as incorrect.",
         fontsize=14,
     )
     dashboard = destination / "comparison.png"
     figure.savefig(dashboard, dpi=150)
     figure.clear()
 
-    figure = Figure(figsize=(16, 5.5), layout="constrained")
+    figure = Figure(figsize=(max(16, len(classes) * 1.5), max(5.5, len(classes) * 0.55)),
+                    layout="constrained")
     FigureCanvasAgg(figure)
     axes = figure.subplots(1, 3)
     matrices = [report["full_dataset"]["confusion_matrix"] for report in ordered]
@@ -122,7 +130,8 @@ def write_comparison(reports, output_dir):
         for row, values in enumerate(matrix):
             for column, value in enumerate(values):
                 axis.text(column, row, str(value), ha="center", va="center",
-                          color="white" if value > maximum / 2 else "black")
+                          color="white" if value > maximum / 2 else "black",
+                          fontsize=7 if len(classes) > 6 else 10)
     figure.colorbar(heatmap, ax=list(axes), label="Image count", shrink=0.8)
     figure.suptitle("Confusion matrices: same test images, same class order and color scale")
     confusion = destination / "comparison_confusion.png"

@@ -110,7 +110,8 @@ def evaluate(dataset, *, model_dir=ROOT, data_dir=ROOT / "pic" / "data3",
     path = Path(model_dir) / f"{dataset}.model"
     model, classes = load_model(path, dataset)
     samples = load_samples(Path(data_dir) / "label.txt")
-    data = samples_to_tensors(samples, ANIMALS)
+    evaluation_classes = (*ANIMALS, *sorted({sample.animal for sample in samples} - set(ANIMALS)))
+    data = samples_to_tensors(samples, evaluation_classes)
     with torch.inference_mode():
         logits, centers = model(data.tensors[0])
         if not torch.isfinite(logits).all() or not torch.isfinite(centers).all():
@@ -121,7 +122,7 @@ def evaluate(dataset, *, model_dir=ROOT, data_dir=ROOT / "pic" / "data3",
     target_centers = data.tensors[2].tolist()
     predicted_centers = centers.tolist()
     known = [index for index, name in enumerate(actual) if name in classes]
-    full = calculate_metrics(actual, predicted, target_centers, predicted_centers, ANIMALS)
+    full = calculate_metrics(actual, predicted, target_centers, predicted_centers, evaluation_classes)
     known_metrics = None
     if known:
         known_metrics = calculate_metrics(
@@ -145,7 +146,7 @@ def evaluate(dataset, *, model_dir=ROOT, data_dir=ROOT / "pic" / "data3",
     print("Known classes: " + ", ".join(classes))
     print(f"Unseen-class images: {report['unseen_class_samples']} (counted as incorrect in full scores).")
     print(report["zero_division_policy"])
-    print_metrics("All data3 classes (six-class scores)", full)
+    print_metrics(f"All test images ({len(evaluation_classes)}-class scores)", full)
     if known_metrics is not None:
         print_metrics(f"Known classes only ({len(classes)}-class scores)", known_metrics)
     else:

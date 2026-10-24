@@ -192,7 +192,7 @@ existing run records and is skipped if no published run exists.
 Class 15's `test` action evaluates saved models on `src/pic/data3`, rather than
 running code checks. Run `training 1` and `training 2` first to create `src/1.model`
 and `src/2.model`, then use `test 1`, `test 2`, or `test` (both). Reports include
-classification metrics, confusion matrices, and center errors. Full six-class
+classification metrics, confusion matrices, and center errors. Full-test
 and known-class-only scores are separate because those models learn three classes.
 Alternatively, `mtrain` trains all six classes on data1 + data2 and saves
 `src/m.model`; `test m` evaluates that combined model on data3.
@@ -200,6 +200,11 @@ Use `test compare` to evaluate all three models together and save comparison
 charts under `src/runs/evaluation`.
 All Class 15 training modes use a seeded, stratified 80/20 train/validation
 split and report both sets' metrics. data3 is reserved for testing.
+Each mode uses 80 training and 20 validation images: `mtrain` selects 40 train
+and 10 validation images from each source rather than using all 200 images.
+The current data3 contains ten animal types outside the six training classes:
+classification accuracy is therefore zero for all three models; center errors
+remain measurable and known-class-only scores are N/A.
 
 Class 6 provides actual model evaluation demonstrations rather than `unittest`
 tests. Inside its lesson directory, run all demonstrations or select one:

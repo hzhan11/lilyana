@@ -14,7 +14,7 @@ import torch
 import charts
 from evaluate import calculate_metrics, evaluate, load_model, main
 from model import AnimalCNN
-from pic.dataset import ANIMALS
+from pic.dataset import ANIMALS, UNSEEN_ANIMALS
 from train import DATASET_CLASSES, ROOT
 
 
@@ -71,22 +71,21 @@ class EvaluationTests(unittest.TestCase):
         data_dir = ROOT / "pic" / "data3"
         before = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in data_dir.iterdir()}
         with contextlib.redirect_stdout(io.StringIO()):
-            for dataset, unseen, accuracy, known_accuracy in (
-                (1, 5, 0.1, 0.2), (2, 5, 0.2, 0.4), ("m", 0, 0.1, 0.1),
-            ):
+            for dataset in (1, 2, "m"):
                 report = evaluate(dataset, model_dir=self.folder, output_dir=self.folder)
                 self.assertEqual(report["full_dataset"]["samples"], 10)
-                self.assertEqual(report["known_classes_only"]["samples"], 10 - unseen)
-                self.assertEqual(report["unseen_class_samples"], unseen)
-                self.assertEqual(report["full_dataset"]["class_order"], list(ANIMALS))
-                self.assertEqual(len(report["full_dataset"]["confusion_matrix"]), 6)
+                self.assertIsNone(report["known_classes_only"])
+                self.assertEqual(report["unseen_class_samples"], 10)
+                self.assertEqual(
+                    report["full_dataset"]["class_order"], [*ANIMALS, *sorted(UNSEEN_ANIMALS)],
+                )
+                self.assertEqual(len(report["full_dataset"]["confusion_matrix"]), 16)
                 self.assertEqual(sum(map(sum, report["full_dataset"]["confusion_matrix"])), 10)
                 self.assertEqual(len(report["predictions"]), 10)
-                self.assertEqual(report["full_dataset"]["accuracy"], accuracy)
-                self.assertEqual(report["known_classes_only"]["accuracy"], known_accuracy)
-                if dataset == "m":
-                    self.assertEqual(report["full_dataset"], report["known_classes_only"])
-                    self.assertTrue(all(row["known_class"] for row in report["predictions"]))
+                self.assertEqual(report["full_dataset"]["accuracy"], 0)
+                for average in ("macro", "weighted"):
+                    self.assertTrue(all(value == 0 for value in report["full_dataset"][average].values()))
+                self.assertTrue(all(not row["known_class"] for row in report["predictions"]))
                 for row in report["predictions"]:
                     self.assertEqual(row["predicted_center"], [99.5, 99.5])
                     self.assertEqual(row["predicted"], DATASET_CLASSES[dataset][0])
@@ -117,6 +116,11 @@ class EvaluationTests(unittest.TestCase):
         self.assertEqual(report["full_dataset"]["accuracy"], 0)
         self.assertEqual(report["unseen_class_samples"], 1)
         self.assertIn("N/A", output.getvalue())
+        with contextlib.redirect_stdout(io.StringIO()):
+            known_report = evaluate("m", model_dir=self.folder, data_dir=folder, output_dir=self.folder)
+        self.assertEqual(known_report["known_classes_only"]["samples"], 1)
+        self.assertEqual(known_report["unseen_class_samples"], 0)
+        self.assertEqual(known_report["full_dataset"]["class_order"], list(ANIMALS))
 
     def test_missing_corrupt_wrong_metadata_and_wrong_weights_fail_explicitly(self):
         with self.assertRaisesRegex(ValueError, "training 1"):
@@ -170,6 +174,9 @@ class EvaluationTests(unittest.TestCase):
                 reports[name], json.loads((self.folder / f"{name}.metrics.json").read_text()),
             )
         self.assertEqual(bars.call_count, 4)
+        self.assertTrue(all(
+            math.isnan(value) for row in bars.call_args_list[1].args[2] for value in row
+        ))
         full_rows = bars.call_args_list[0].args[2]
         self.assertEqual(full_rows, [
             [report["full_dataset"]["accuracy"], report["full_dataset"]["macro"]["precision"],
