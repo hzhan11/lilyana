@@ -130,6 +130,7 @@ class LauncherTests(unittest.TestCase):
             ("mtrain", ["--epochs", "1"], "mtrain.py"),
             ("mtrain.py", ["--epochs", "1"], "mtrain.py"),
             ("test", ["m"], "test.py"),
+            ("test", ["compare"], "test.py"),
             ("test.py", ["m"], "test.py"),
         ):
             with self.subTest(action=action):

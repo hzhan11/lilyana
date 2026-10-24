@@ -160,8 +160,8 @@ def evaluate(dataset, *, model_dir=ROOT, data_dir=ROOT / "pic" / "data3",
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("dataset", nargs="?", choices=("1", "2", "m"),
-                        help="1, 2, or m; omit to evaluate models 1 and 2.")
+    parser.add_argument("dataset", nargs="?", choices=("1", "2", "m", "compare"),
+                        help="1, 2, m, or compare (all three with charts); omit for models 1 and 2.")
     parser.add_argument("--model-dir", type=Path, default=ROOT)
     parser.add_argument("--data-dir", type=Path, default=ROOT / "pic" / "data3")
     parser.add_argument("--output-dir", type=Path, default=ROOT / "runs" / "evaluation")
@@ -171,12 +171,22 @@ def main(argv=None):
         parser.error("threads must be between 1 and 4.")
     torch.set_num_threads(options.threads)
     datasets = (1, 2)
-    if options.dataset is not None:
+    if options.dataset == "compare":
+        datasets = (1, 2, "m")
+    elif options.dataset is not None:
         datasets = ("m" if options.dataset == "m" else int(options.dataset),)
     try:
+        reports = {}
         for dataset in datasets:
-            evaluate(dataset, model_dir=options.model_dir, data_dir=options.data_dir,
-                     output_dir=options.output_dir)
+            reports[str(dataset)] = evaluate(
+                dataset, model_dir=options.model_dir, data_dir=options.data_dir,
+                output_dir=options.output_dir,
+            )
+        if options.dataset == "compare":
+            from charts import write_comparison
+
+            for path in write_comparison(reports, options.output_dir):
+                print(f"Saved comparison: {path}")
     except (OSError, ValueError) as error:
         parser.error(str(error))
     return 0

@@ -10,16 +10,16 @@
   "zero_division_policy": "Undefined precision, recall, and F1 are reported as 0.",
   "full_dataset": {
     "samples": 10,
-    "accuracy": 0.0,
+    "accuracy": 0.3,
     "macro": {
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1-score": 0.0
+      "precision": 0.15277777777777776,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.20555555555555557
     },
     "weighted": {
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1-score": 0.0
+      "precision": 0.15,
+      "recall": 0.3,
+      "f1-score": 0.19666666666666668
     },
     "per_class": {
       "cat": {
@@ -41,21 +41,21 @@
         "support": 2.0
       },
       "rabbit": {
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1-score": 0.0,
+        "precision": 0.3333333333333333,
+        "recall": 0.5,
+        "f1-score": 0.4,
         "support": 2.0
       },
       "bear": {
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1-score": 0.0,
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "f1-score": 0.5,
         "support": 1.0
       },
       "fox": {
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1-score": 0.0,
+        "precision": 0.25,
+        "recall": 0.5,
+        "f1-score": 0.3333333333333333,
         "support": 2.0
       }
     },
@@ -72,9 +72,9 @@
         0,
         0,
         0,
-        0,
         1,
-        1
+        1,
+        0
       ],
       [
         0,
@@ -83,22 +83,6 @@
         0,
         0,
         2
-      ],
-      [
-        0,
-        0,
-        0,
-        0,
-        0,
-        2
-      ],
-      [
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
       ],
       [
         0,
@@ -107,6 +91,22 @@
         1,
         1,
         0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
       ]
     ],
     "class_order": [
@@ -118,61 +118,61 @@
       "fox"
     ],
     "center": {
-      "mae_pixels": 13.597421264648437,
-      "mae_x_pixels": 15.686722564697266,
-      "mae_y_pixels": 11.50811996459961,
-      "rmse_pixels": 16.76345078731174,
-      "mean_distance_pixels": 21.291407841731782
+      "mae_pixels": 4.681563949584961,
+      "mae_x_pixels": 4.220411682128907,
+      "mae_y_pixels": 5.1427162170410154,
+      "rmse_pixels": 6.015332529758206,
+      "mean_distance_pixels": 7.340941821505607
     }
   },
   "known_classes_only": {
     "samples": 5,
-    "accuracy": 0.0,
+    "accuracy": 0.6,
     "macro": {
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1-score": 0.0
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.611111111111111
     },
     "weighted": {
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1-score": 0.0
+      "precision": 0.7,
+      "recall": 0.6,
+      "f1-score": 0.6
     },
     "per_class": {
       "rabbit": {
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1-score": 0.0,
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1-score": 0.5,
         "support": 2.0
       },
       "bear": {
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1-score": 0.0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1-score": 0.6666666666666666,
         "support": 1.0
       },
       "fox": {
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1-score": 0.0,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1-score": 0.6666666666666666,
         "support": 2.0
       }
     },
     "confusion_matrix": [
       [
-        0,
-        0,
-        2
-      ],
-      [
-        0,
-        0,
-        1
-      ],
-      [
         1,
         1,
         0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
       ]
     ],
     "class_order": [
@@ -181,11 +181,11 @@
       "fox"
     ],
     "center": {
-      "mae_pixels": 13.939162445068359,
-      "mae_x_pixels": 15.026167297363282,
-      "mae_y_pixels": 12.852157592773438,
-      "rmse_pixels": 17.966168787167575,
-      "mean_distance_pixels": 22.001719837246394
+      "mae_pixels": 4.646024322509765,
+      "mae_x_pixels": 2.606221008300781,
+      "mae_y_pixels": 6.68582763671875,
+      "rmse_pixels": 6.281738698262428,
+      "mean_distance_pixels": 7.310834130597169
     }
   },
   "predictions": [
@@ -193,14 +193,14 @@
       "filename": "image_01.png",
       "actual": "pig",
       "predicted": "fox",
-      "confidence": 0.9607982039451599,
+      "confidence": 0.9800440669059753,
       "actual_center": [
         107.0,
         121.0
       ],
       "predicted_center": [
-        105.88327026367188,
-        113.81311798095703
+        105.35779571533203,
+        117.53878784179688
       ],
       "known_class": false
     },
@@ -208,14 +208,14 @@
       "filename": "image_02.png",
       "actual": "fox",
       "predicted": "rabbit",
-      "confidence": 0.7358161211013794,
+      "confidence": 0.9999996423721313,
       "actual_center": [
         148.0,
         126.0
       ],
       "predicted_center": [
-        130.7999725341797,
-        95.74729919433594
+        146.05218505859375,
+        119.63314056396484
       ],
       "known_class": true
     },
@@ -223,14 +223,14 @@
       "filename": "image_03.png",
       "actual": "cat",
       "predicted": "fox",
-      "confidence": 0.760917067527771,
+      "confidence": 0.9965041875839233,
       "actual_center": [
         77.0,
         89.0
       ],
       "predicted_center": [
-        91.89680480957031,
-        100.25514221191406
+        84.89892578125,
+        93.19268798828125
       ],
       "known_class": false
     },
@@ -238,104 +238,104 @@
       "filename": "image_04.png",
       "actual": "pig",
       "predicted": "fox",
-      "confidence": 0.9677432775497437,
+      "confidence": 0.89493328332901,
       "actual_center": [
         110.0,
         107.0
       ],
       "predicted_center": [
-        137.75411987304688,
-        103.86705780029297
+        112.62886047363281,
+        105.5608139038086
       ],
       "known_class": false
     },
     {
       "filename": "image_05.png",
       "actual": "bear",
-      "predicted": "fox",
-      "confidence": 0.9948976635932922,
+      "predicted": "bear",
+      "confidence": 0.9998227953910828,
       "actual_center": [
         137.0,
         115.0
       ],
       "predicted_center": [
-        100.41360473632812,
-        101.29106140136719
+        138.2692413330078,
+        116.34813690185547
       ],
       "known_class": true
     },
     {
       "filename": "image_06.png",
       "actual": "rabbit",
-      "predicted": "fox",
-      "confidence": 0.9932439923286438,
+      "predicted": "bear",
+      "confidence": 0.9946915507316589,
       "actual_center": [
         138.0,
         82.0
       ],
       "predicted_center": [
-        135.5487060546875,
-        97.27254486083984
+        130.48110961914062,
+        94.39019775390625
       ],
       "known_class": true
     },
     {
       "filename": "image_07.png",
       "actual": "rabbit",
-      "predicted": "fox",
-      "confidence": 0.9766879677772522,
+      "predicted": "rabbit",
+      "confidence": 0.8624523282051086,
       "actual_center": [
         145.0,
         96.0
       ],
       "predicted_center": [
-        140.7445526123047,
-        91.75422668457031
+        146.6321258544922,
+        107.40144348144531
       ],
       "known_class": true
     },
     {
       "filename": "image_08.png",
       "actual": "dog",
-      "predicted": "fox",
-      "confidence": 0.9477525353431702,
+      "predicted": "bear",
+      "confidence": 0.9929897785186768,
       "actual_center": [
         128.0,
         119.0
       ],
       "predicted_center": [
-        110.46163177490234,
-        98.98314666748047
+        139.73416137695312,
+        117.73744201660156
       ],
       "known_class": false
     },
     {
       "filename": "image_09.png",
       "actual": "dog",
-      "predicted": "bear",
-      "confidence": 0.9994440674781799,
+      "predicted": "rabbit",
+      "confidence": 0.507919192314148,
       "actual_center": [
         62.0,
         144.0
       ],
       "predicted_center": [
-        82.43036651611328,
-        134.7714080810547
+        67.26885986328125,
+        136.3576202392578
       ],
       "known_class": false
     },
     {
       "filename": "image_10.png",
       "actual": "fox",
-      "predicted": "bear",
-      "confidence": 0.9283368587493896,
+      "predicted": "fox",
+      "confidence": 0.9996696710586548,
       "actual_center": [
         93.0,
         71.0
       ],
       "predicted_center": [
-        78.3623275756836,
-        71.78083038330078
+        93.66303253173828,
+        72.92250061035156
       ],
       "known_class": true
     }

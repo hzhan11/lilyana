@@ -11,6 +11,7 @@ from unittest.mock import patch
 from PIL import Image
 import torch
 
+import charts
 from evaluate import calculate_metrics, evaluate, load_model, main
 from model import AnimalCNN
 from pic.dataset import ANIMALS
@@ -154,6 +155,65 @@ class EvaluationTests(unittest.TestCase):
             with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
                 main(args)
             self.assertEqual(error.exception.code, 2)
+
+    def test_compare_evaluates_all_models_and_plots_exact_report_values(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            with patch("charts.grouped_bars", wraps=charts.grouped_bars) as bars:
+                self.assertEqual(main([
+                    "compare", "--model-dir", str(self.folder), "--output-dir", str(self.folder),
+                ]), 0)
+        snapshot = json.loads((self.folder / "comparison.metrics.json").read_text())
+        reports = snapshot["models"]
+        self.assertEqual(set(reports), {"1", "2", "m"})
+        for name in ("1", "2", "m"):
+            self.assertEqual(
+                reports[name], json.loads((self.folder / f"{name}.metrics.json").read_text()),
+            )
+        self.assertEqual(bars.call_count, 4)
+        full_rows = bars.call_args_list[0].args[2]
+        self.assertEqual(full_rows, [
+            [report["full_dataset"]["accuracy"], report["full_dataset"]["macro"]["precision"],
+             report["full_dataset"]["macro"]["recall"], report["full_dataset"]["macro"]["f1-score"]]
+            for report in reports.values()
+        ])
+        self.assertEqual(bars.call_args_list[2].args[2], [
+            [report["full_dataset"]["center"][key]
+             for key in ("mae_pixels", "rmse_pixels", "mean_distance_pixels")]
+            for report in reports.values()
+        ])
+        for filename in ("comparison.png", "comparison_confusion.png"):
+            path = self.folder / filename
+            with Image.open(path) as image:
+                image.load()
+                self.assertEqual(image.format, "PNG")
+                self.assertGreaterEqual(image.width, 1500)
+                self.assertGreaterEqual(image.height, 750)
+            self.assertGreater(path.stat().st_size, 10_000)
+
+    def test_compare_missing_model_fails_instead_of_faking_results(self):
+        (self.folder / "m.model").unlink()
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit) as error:
+                main(["compare", "--model-dir", str(self.folder), "--output-dir", str(self.folder)])
+        self.assertEqual(error.exception.code, 2)
+        self.assertFalse((self.folder / "comparison.png").exists())
+
+    def test_chart_marks_missing_known_class_metrics_and_rejects_different_test_sets(self):
+        folder = self.folder / "unseen"
+        folder.mkdir()
+        Image.new("RGB", (200, 200), "white").save(folder / "fox.png")
+        (folder / "label.txt").write_text("fox.png,fox,[80,90]\n", encoding="utf-8")
+        with contextlib.redirect_stdout(io.StringIO()):
+            reports = {
+                str(number): evaluate(number, model_dir=self.folder, data_dir=folder, output_dir=self.folder)
+                for number in (1, 2, "m")
+            }
+        with patch("charts.grouped_bars", wraps=charts.grouped_bars) as bars:
+            charts.write_comparison(reports, self.folder)
+        self.assertTrue(all(math.isnan(value) for value in bars.call_args_list[1].args[2][0]))
+        reports["m"]["predictions"][0]["actual_center"] = [10, 20]
+        with self.assertRaisesRegex(ValueError, "same images and labels"):
+            charts.write_comparison(reports, self.folder)
 
 
 if __name__ == "__main__":

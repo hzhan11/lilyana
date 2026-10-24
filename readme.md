@@ -196,6 +196,8 @@ classification metrics, confusion matrices, and center errors. Full six-class
 and known-class-only scores are separate because those models learn three classes.
 Alternatively, `mtrain` trains all six classes on data1 + data2 and saves
 `src/m.model`; `test m` evaluates that combined model on data3.
+Use `test compare` to evaluate all three models together and save comparison
+charts under `src/runs/evaluation`.
 All Class 15 training modes use a seeded, stratified 80/20 train/validation
 split and report both sets' metrics. data3 is reserved for testing.
 

@@ -239,6 +239,37 @@ ground-truth label, are saved to `src/runs/evaluation/1.metrics.json` and
 report, not the model or images. Use `--model-dir`, `--data-dir`, and
 `--output-dir` to choose different locations; `test --help` lists options.
 
+### Comparing Models with Charts
+
+To evaluate all three saved models on the same data3 images and save charts:
+
+```powershell
+.\start.bat test compare
+```
+
+On Linux/macOS use `sh start.sh test compare`. From `src`, direct execution is
+`python test.py compare`. All three model files must exist; comparison never
+trains missing models or substitutes previous saved scores. Existing `test 1`,
+`test 2`, `test m`, and no-identifier behavior are unchanged.
+
+Outputs are saved under **`src/runs/evaluation`**:
+
+- **`comparison.png`**: full-dataset accuracy and macro precision/recall/F1,
+  known-class-only scores, center MAE/RMSE/distance, and per-class F1.
+- **`comparison_confusion.png`**: the three confusion matrices with identical
+  class ordering and a shared color scale.
+- **`comparison.metrics.json`**: the complete fresh reports used by the charts,
+  alongside the updated individual `1.metrics.json`, `2.metrics.json`, and
+  `m.metrics.json` reports.
+
+The full-dataset panels use the same images for every model. Known-class-only
+panels explicitly show their different sample counts; those scores are not
+like-for-like six-class comparisons. Undefined known-class results appear as
+N/A, not zero. Higher classification scores are better; lower center errors
+are better. The charts are rendered headlessly and do not open a GUI.
+Use `--output-dir` to change the chart/report directory. Re-running comparison
+replaces these outputs without changing model weights or images.
+
 This is a tiny synthetic demonstration: data3 uses recolored, resized, and
 repositioned versions of the original animal drawings. These related images
 are not an independent real-world test set, so good scores do not establish
